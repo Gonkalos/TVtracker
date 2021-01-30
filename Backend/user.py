@@ -1,10 +1,12 @@
-from serie import UserSerie
+from series import UserSeries
 
 class User:
 
     # Class initialization
-    def __init__(self, username):
+    def __init__(self, username, email, password):
         self.username = username
+        self.email = email
+        self.password = password
         self.list = {}
 
     # Update username
@@ -12,23 +14,23 @@ class User:
         self.username = newUsername
 
     # Add serie to user list
-    def addSerie(self, serieID, totalSeasons, totalEpisodes):
-        if serieID in self.list:
-            raise Exception('The serie is already in user list.')
+    def addSerie(self, seriesID, totalSeasons, totalEpisodes):
+        if seriesID in self.list:
+            raise Exception('The series is already in user list.')
         else:
-            self.list[serieID] = UserSerie(totalSeasons, totalEpisodes) 
+            self.list[seriesID] = UserSeries(totalSeasons, totalEpisodes) 
 
     # Remove serie from user list
     def removeSerie(self, serieID):
         if serieID in self.list:
             self.list.pop(serieID)
         else:
-            raise Exception('The serie is not in user list.')
+            raise Exception('The series is not in user list.')
 
     # Update serie rating
-    def updateRating(self, serieID, newRating):
-        if serieID in self.list:
-            self.list[serieID].updateRating(newRating)
+    def updateRating(self, seriesID, newRating):
+        if seriesID in self.list:
+            self.list[seriesID].updateRating(newRating)
         else:
-            raise Exception('The id does not corresponde to a serie in user list.')
+            raise Exception('The id does not corresponde to a series in user list.')
 

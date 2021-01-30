@@ -1,7 +1,7 @@
-# Serie status enumerator
+# Series status enumerator
 status = ['Watching', 'Rewatching', 'Completed', 'Plan To Watch']
 
-class Serie:
+class Series:
 
     # Class initialization
     def __init__(self, imdbID, title, year, genre, director, writer, plot, poster, imdbRating, type, totalSeasons, totalEpisodes):
@@ -33,7 +33,7 @@ class Serie:
                + 'Episodes: ' + str(self.totalEpisodes)
         return string
 
-class UserSerie:
+class UserSeries:
 
     # Class initialization
     def __init__(self, totalSeasons, totalEpisodes):

@@ -1,0 +1,195 @@
+
+------------------------------------------------------------------
+
+Create Account
+
+Description: The user creates an account on the system.
+Precondition: -
+Postcondition: The system is updated with a new account.
+
+Normal flow:
+
+    1 - The user inserts username, email and password twice;
+    2 - The system validates the inserted data;
+    3 - The system creates a new account;
+    4 - The system is updated with a new account;
+    5 - The system informs operation success.
+
+Exception flow 1:
+
+    [Step 2 - The inserted data is invalid]
+    2.1 - The system informs that the inserted data is invalid. 
+
+Exception flow 2:
+
+    [Step 2 - The passwords don't match]
+    2.1 - The system informs that the passwords don't match. 
+
+------------------------------------------------------------------
+
+Login
+
+Description: The user logs in into his account.
+Precondition: The user has an account in the system.
+Postcondition: The system logs the user in.
+
+Normal flow:
+
+    1 - The user inserts username and password;
+    2 - The system validates the inserted data;
+    3 - The user stays logged in the system.
+
+Exception flow 1:
+
+    [Step 2 - The inserted data is invalid]
+    2.1 - The system informs that the inserted data is invalid. 
+
+Exception flow 2:
+
+    [Step 2 - The inserted username does not match any account in the system]
+    2.1 - The system informs that the inserted username does not match any account in the system. 
+
+Exception flow 3:
+
+    [Step 2 - The inserted password does not match the username]
+    2.1 - The system informs that the inserted password is incorrect. 
+
+------------------------------------------------------------------
+
+Logout
+
+Description: The user logs out of his account.
+Precondition: The user is logged in his account.
+Postcondition: The system logs the user out.
+
+Normal flow:
+
+    1 - The user indicates that he wants to logout of the system;
+    2 - The system logs the user out.
+
+------------------------------------------------------------------
+
+Change Password
+
+Description: The user changes the password of his account.
+Precondition: The user is logged in his account.
+Postcondition: The system changes the user's account password.
+
+Normal flow:
+
+    1 - The user inserts the new password twice and the old password;
+    2 - The system validates the inserted data;
+    3 - The system informs operation success.
+
+Exception flow 1:
+
+    [Step 2 - The new passwords don't match]
+    2.1 - The system informs that the passwords don't match.
+
+Exception flow 2:
+
+    [Step 2 - The old password is incorrect]
+    2.1 - The system informs that the old password is incorrect.
+
+------------------------------------------------------------------
+
+Forgot Password 
+
+Description: The user forgets the password of his account.
+Precondition: The user has an account in the system.
+Postcondition: The system changes the user's account password.
+
+Normal flow:
+
+    1 - The user inserts the email of his account;
+    2 - The system sends an email with a link to reset the account password;
+    3 - The user confirms password reset by clicking the link;
+    4 - The system changes the account password with a generated one;
+    5 - The system sends an email with the new password.
+
+------------------------------------------------------------------
+
+Add Serie
+
+Description: The user adds a series to his list.
+Precondition: The user is logged in and the series is not his list.
+Postcondition: The system adds the series to the user's list.
+
+Normal flow:
+
+    1 - The system adds the series to the user's list.
+
+------------------------------------------------------------------
+
+Remove Series
+
+Description: The user removes a series from his list.
+Precondition: The user is logged in and the series is in his list.
+Postcondition: The system removes the series from user list.
+
+Normal flow:
+
+    1 - The system removes the series from user list.
+
+------------------------------------------------------------------
+
+Rank Series
+
+Description: The user ranks a series in his list.
+Precondition: The user is logged in and the series is in his list.
+Postcondition: The system updates the ranking of the series on the user's list.
+
+Normal flow:
+
+    1 - The user selects the ranking of the series;
+    2 - The system updates the ranking of the series.
+
+------------------------------------------------------------------
+
+Change Status
+
+Description: The user changes the status of a series in his list.
+Precondition: The user is logged in and the series is in his list.
+Postcondition: The system updates the status of the series on the user's list.
+
+Normal flow:
+
+    1 - The user selects the status of the series;
+    2 - The system updates the status of the series.
+
+Alternative flow:
+
+    [Step 1 - The new status is 'Completed' or 'Plan To Watch']
+    1.1 - The system updates the number of episodes seen in all seasons of the series;
+    1.2 - Back to step 2.
+
+------------------------------------------------------------------
+
+Change Number of Episodes Seen
+
+Description: The user changes the number of episodes seen in a season of a series in his list.
+Precondition: The user is logged in and the series is in his list.
+Postcondition: The system updates the number of episodes seen in a season of a series on the user's list.
+
+    1 - The user selects the number of episodes seen in a season of the series;
+    2 - The system updates the number of episodes seen in a season of the series.
+
+Alternative flow:
+
+    [Step 1 - The number of episodes seen is the total number of episodes in the series]
+    1.1 - The system updates the status of the series to 'Completed'.
+
+------------------------------------------------------------------
+
+Search Series
+
+Description: The user searches for a series.
+Precondition: The user is logged in his account.
+Postcondition: The system presents the result of the search.
+
+Normal flow:
+
+    1 - The user inserts the title of a series;
+    2 - The system presents the result of the search.
+
+------------------------------------------------------------------

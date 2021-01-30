@@ -1,17 +1,14 @@
 from flask import Flask
 import requests
 import constants
-from serie import Serie
+from series import Series
 from user import User
-
-# Temporary db
-user = User('Gonkalos')
 
 # Initialize a Flask server
 app = Flask(__name__)
 
 # Get serie by title
-@app.route('/getSerie/<title>')
+@app.route('/getSeries/<title>')
 def getSerie(title):
     # Send GET request
     response = requests.get(constants.OMDB_API_URL, params={'apikey': constants.OMDB_API_KEY, 't': title})
@@ -27,13 +24,13 @@ def getSerie(title):
             numberEpisodes = getSeason(json['Title'], season)
             if numberEpisodes.isdigit():
                 totalEpisodes[season - 1] = numberEpisodes
-        # Create serie
-        serie = Serie(json['imdbID'], json['Title'], json['Year'], json['Genre'], json['Director'], json['Writer'], json['Plot'], json['Poster'], json['imdbRating'], json['Type'], json['totalSeasons'], totalEpisodes)
-        return serie.toString()
+        # Create series
+        series = Series(json['imdbID'], json['Title'], json['Year'], json['Genre'], json['Director'], json['Writer'], json['Plot'], json['Poster'], json['imdbRating'], json['Type'], json['totalSeasons'], totalEpisodes)
+        return series.toString()
     else:
         return 'Response Error ' + str(status)
 
-# Get the number of episodes of a season from a serie
+# Get the number of episodes of a season from a series
 @app.route('/getSeasonEpisodes/<title>&<number>')
 def getSeason(title, number):
     # Send GET request
@@ -48,9 +45,9 @@ def getSeason(title, number):
     else:
         return 'Response Error ' + str(status)
 
-# Update serie's rating
-@app.route('/rateSerie/<serieID>&<rating>')
-def updateRating(serieID, rating):
+# Update series rating
+@app.route('/rateSeries/<seriesID>&<rating>')
+def updateRating(seriesID, rating):
     return 'OK'
 
 
