@@ -4,7 +4,7 @@ status = ['Watching', 'Rewatching', 'Completed', 'Plan To Watch']
 class Series:
 
     # Class initialization
-    def __init__(self, imdbID, title, year, genre, director, writer, plot, poster, imdbRating, type, totalSeasons, totalEpisodes):
+    def __init__(self, imdbID, title, year, genre, director, writer, plot, poster, imdbRating, totalSeasons, totalEpisodes):
         self.imdbID = imdbID
         self.title = title
         self.year = year
@@ -14,24 +14,41 @@ class Series:
         self.plot = plot
         self.poster = poster
         self.imdbRating = imdbRating
-        self.type = type
         self.totalSeasons = totalSeasons
         self.totalEpisodes = totalEpisodes
 
-    # To string
-    def toString(self):
-        string = 'Title: ' + self.title + '\n' \
-               + 'Year: ' + self.year  + '\n' \
-               + 'Genre: ' + self.genre + '\n' \
-               + 'Director: ' + self.director + '\n' \
-               + 'Writer: ' + self.writer + '\n' \
-               + 'Plot: ' + self.plot + '\n' \
-               + 'Poster: ' + self.poster + '\n' \
-               + 'IMDb Rating: ' + self.imdbRating + '\n' \
-               + 'Type: ' + self.type + '\n' \
-               + 'Number of Seasons: ' + self.totalSeasons + '\n' \
-               + 'Episodes: ' + str(self.totalEpisodes)
+    # To json string
+    def json(self):
+        string = '{\"Title\": \"' + self.title + '\",' \
+               + '\"Year\": \"' + self.year  + '\",' \
+               + '\"Genre\": \"' + self.genre + '\",' \
+               + '\"Director\": \"' + self.director + '\",' \
+               + '\"Writer\": \"' + self.writer + '\",' \
+               + '\"Plot\": \"' + self.plot + '\",' \
+               + '\"Poster\": \"' + self.poster + '\",' \
+               + '\"IMDbRating\": \"' + self.imdbRating + '\",' \
+               + '\"TotalSeasons\": \"' + self.totalSeasons + '\",' \
+               + '\"TotalEpisodes\": ['
+        for season in range(0, int(self.totalSeasons) - 1):
+            string += str(self.totalEpisodes[season]) + ', '
+        string += str(self.totalEpisodes[int(self.totalSeasons) - 1]) + ']}'
         return string
+
+
+class SearchSeries:
+
+    # Class initialization
+    def __init__(self, imdbID, title, poster):
+        self.imdbID = imdbID
+        self.title = title
+        self.poster = poster
+
+    # To json string
+    def json(self):
+        string = '{\"Title\": \"' + self.title + '\",' \
+               + '\"Poster\": \"' + self.poster + '\"}'
+        return string
+
 
 class UserSeries:
 
