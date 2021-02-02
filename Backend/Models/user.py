@@ -1,4 +1,4 @@
-from series import UserSeries
+from .series import UserSeries
 
 class User:
 

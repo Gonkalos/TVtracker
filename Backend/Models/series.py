@@ -55,8 +55,7 @@ class UserSeries:
     # Class initialization
     def __init__(self, totalSeasons, totalEpisodes):
         self.status = status[0]
-        self.totalEpisodes = totalEpisodes # nember of episodes in each season
-        self.episodesSeen = [0] * totalSeasons # number of episodes seen in each season 
+        self.episodesSeen = [0] * totalSeasons
         self.rating = -1
 
     # Update rating

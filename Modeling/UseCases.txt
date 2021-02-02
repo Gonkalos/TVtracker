@@ -25,6 +25,11 @@ Exception flow 2:
     [Step 2 - The passwords don't match]
     2.1 - The system informs that the passwords don't match. 
 
+Exception flow 3:
+
+    [Step 2 - The username or email are already on the system]
+    2.1 - The system informs that the username or email are already in use. 
+
 ------------------------------------------------------------------
 
 Login
