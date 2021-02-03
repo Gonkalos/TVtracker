@@ -1,5 +1,4 @@
 import mysql.connector
-import secrets
 import Utils.hash as myhash
 
 class Database:
@@ -32,7 +31,7 @@ class Database:
                                                             Username varchar(45) NOT NULL, \
                                                             Email varchar(100) NOT NULL, \
                                                             Password varchar(200) NOT NULL, \
-                                                            Token varchar(22), \
+                                                            Token varchar(200), \
                                                             PRIMARY KEY (UserID));')
         #mydb.commit()
         # Create series table
@@ -96,20 +95,6 @@ class Database:
         mydb.close()
         if str(result) == 'None': return 'Success' 
         else: return 'Error: The user is already logged in the system.'
-
-    # Generate login token
-    def generateToken(self):
-        generated = 0
-        mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
-        mycursor = mydb.cursor()
-        while generated != 1:
-            token = secrets.token_hex(11)
-            mycursor.execute('SELECT * FROM Users WHERE Token = \'' + token + '\' LIMIT 1')
-            result = mycursor.fetchone()
-            if (str(result) == 'None'): generated = 1
-        mycursor.close()
-        mydb.close()
-        return token
 
     # Update login token
     def updateToken(self, email, token):

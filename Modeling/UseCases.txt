@@ -114,7 +114,7 @@ Normal flow:
 
 ------------------------------------------------------------------
 
-Add Serie
+Add Series
 
 Description: The user adds a series to his list.
 Precondition: The user is logged in and the series is not his list.

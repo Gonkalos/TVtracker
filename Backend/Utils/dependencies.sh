@@ -12,3 +12,8 @@ brew services start mysql
 
 # Install MySQL Connector library
 python3.9 -m pip install mysql-connector-python
+
+# Install JWT library
+python3.9 -m pip install pyjwt
+
+#python3.9 -m pip install flask_bcrypt
