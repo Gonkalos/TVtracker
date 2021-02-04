@@ -6,7 +6,7 @@ status = ['Watching', 'Rewatching', 'Completed', 'Plan To Watch']
 class Series:
 
     # Class initialization
-    def __init__(self, imdbID, title, year, genre, director, writer, plot, poster, imdbRating, totalSeasons, totalEpisodes):
+    def __init__(self, imdbID, title, year, genre, director, writer, plot, poster, imdbRating, totalEpisodes):
         self.imdbID = imdbID
         self.title = title
         self.year = year
@@ -16,7 +16,6 @@ class Series:
         self.plot = plot
         self.poster = poster
         self.imdbRating = imdbRating
-        self.totalSeasons = totalSeasons
         self.totalEpisodes = totalEpisodes
 
     # To json string
@@ -30,7 +29,6 @@ class Series:
         attributes['Plot'] = self.plot
         attributes['Poster'] = self.poster
         attributes['IMDbRating'] = self.imdbRating
-        attributes['TotalSeasons'] = self.totalSeasons
         attributes['TotalEpisodes'] = self.totalEpisodes
         return json.dumps(attributes)
 

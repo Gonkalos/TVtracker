@@ -91,12 +91,14 @@ def getSeries():
                 if status == 200:
                     jsonResponse = response.json()
                     # Get number of episodes for each season
-                    totalEpisodes = getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
-                    # Create series
-                    series = Series(jsonResponse['imdbID'], jsonResponse['Title'], jsonResponse['Year'], jsonResponse['Genre'], 
-                                    jsonResponse['Director'], jsonResponse['Writer'], jsonResponse['Plot'], jsonResponse['Poster'], 
-                                    jsonResponse['imdbRating'], jsonResponse['totalSeasons'], totalEpisodes)
-                    return series.json()
+                    episodes_check, episodes = getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                    if episodes_check:
+                        # Create series
+                        series = Series(jsonResponse['imdbID'], jsonResponse['Title'], jsonResponse['Year'], jsonResponse['Genre'], 
+                                        jsonResponse['Director'], jsonResponse['Writer'], jsonResponse['Plot'], jsonResponse['Poster'], 
+                                        jsonResponse['imdbRating'], episodes)
+                        return series.json()
+                    else: return episodes
                 else: return 'Error: OMDb response status ' + str(status)
             else: return 'Error: Missing data.'
         else: return decode
@@ -160,18 +162,19 @@ def getSeasonEpisodes(title, season):
     if status == 200:
         jsonResponse = response.json()
         totalEpisodes = len(jsonResponse['Episodes'])
-        return str(totalEpisodes)
-    else: return 'Error: OMDb response status ' + str(status)
+        return True, totalEpisodes
+    else: return False, 'Error: OMDb response status ' + str(status)
 
 
 # Get the number of episodes of all seasons from a series
 def getTotalEpisodes(title, totalSeasons):
-    totalEpisodes = [0] * totalSeasons
+    episodes = {}
     for season in range(1, totalSeasons + 1):
-        numberEpisodes = getSeasonEpisodes(title, season)
-        if numberEpisodes.isdigit():
-            totalEpisodes[season - 1] = numberEpisodes
-    return totalEpisodes
+        check, response = getSeasonEpisodes(title, season)
+        if check:
+            episodes[season] = response
+        else: return False, response
+    return True, episodes
 
 
 if __name__ == '__main__':
