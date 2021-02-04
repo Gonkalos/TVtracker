@@ -1,3 +1,5 @@
+import json
+
 # Series status enumerator
 status = ['Watching', 'Rewatching', 'Completed', 'Plan To Watch']
 
@@ -19,20 +21,18 @@ class Series:
 
     # To json string
     def json(self):
-        string = '{\"Title\": \"' + self.title + '\",' \
-               + '\"Year\": \"' + self.year  + '\",' \
-               + '\"Genre\": \"' + self.genre + '\",' \
-               + '\"Director\": \"' + self.director + '\",' \
-               + '\"Writer\": \"' + self.writer + '\",' \
-               + '\"Plot\": \"' + self.plot + '\",' \
-               + '\"Poster\": \"' + self.poster + '\",' \
-               + '\"IMDbRating\": \"' + self.imdbRating + '\",' \
-               + '\"TotalSeasons\": \"' + self.totalSeasons + '\",' \
-               + '\"TotalEpisodes\": ['
-        for season in range(0, int(self.totalSeasons) - 1):
-            string += str(self.totalEpisodes[season]) + ', '
-        string += str(self.totalEpisodes[int(self.totalSeasons) - 1]) + ']}'
-        return string
+        dic = {}
+        dic['Title'] = self.title
+        dic['Year'] = self.year
+        dic['Genre'] = self.genre
+        dic['Director'] = self.director
+        dic['Writer'] = self.writer
+        dic['Plot'] = self.plot
+        dic['Poster'] = self.poster
+        dic['IMDbRating'] = self.imdbRating
+        dic['TotalSeasons'] = self.totalSeasons
+        dic['TotalEpisodes'] = self.totalEpisodes
+        return json.dumps(dic)
 
 
 class SearchSeries:
@@ -45,9 +45,11 @@ class SearchSeries:
 
     # To json string
     def json(self):
-        string = '{\"Title\": \"' + self.title + '\",' \
-               + '\"Poster\": \"' + self.poster + '\"}'
-        return string
+        dic = {}
+        dic['IMDbID'] = self.imdbID
+        dic['Title'] = self.title
+        dic['Poster'] = self.poster
+        return json.dumps(dic)
 
 
 class UserSeries:
