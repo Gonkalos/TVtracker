@@ -1,2 +1,2 @@
 python3.9 server.py
-rm -rf __pycache__
+find . -maxdepth 2 -type d -name __pycache__ -exec rm -r {} + 
