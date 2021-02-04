@@ -175,5 +175,55 @@ def removeSeries():
     else: return token
 
 
+# Update series status
+@app.route('/UpdateSeriesStatus', methods=['POST'])
+def UpdateSeriesStatus():
+    # Validate Authorization Token
+    bearer_check, token = aux.checkAuth(request.headers)
+    if bearer_check:
+        valid_check, decode = tokens.decode_auth_token(token)
+        if valid_check:
+            # Get body parameters
+            data = request.get_json()
+            parameters = ['imdbID', 'status']
+            if all(elem in list(data) for elem in parameters) and len(data) >= 2:
+                imdbID = data['imdbID']
+                seriesStatus = data['status']
+                # Send request
+                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
+                # Get response status code
+                status = response.status_code
+                # Check response status 
+                if status == 200:
+                    jsonResponse = response.json()
+                    # Get number of episodes for each season
+                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                    if episodes_check: return mydb.updateSeriesStatus(decode, imdbID, seriesStatus, episodes)
+                else: return 'Error: OMDb response status ' + str(status)
+            else: return 'Error: Missing data.'
+        else: return decode
+    else: return token
+
+
+# Rate Series
+@app.route('/RateSeries', methods=['POST'])
+def rankSeries():
+    # Validate Authorization Token
+    bearer_check, token = aux.checkAuth(request.headers)
+    if bearer_check:
+        valid_check, decode = tokens.decode_auth_token(token)
+        if valid_check:
+            # Get body parameters
+            data = request.get_json()
+            parameters = ['imdbID', 'rating']
+            if all(elem in list(data) for elem in parameters) and len(data) >= 2:
+                imdbID = data['imdbID']
+                rating = data['rating']
+                return mydb.rateSeries(decode, imdbID, rating)
+            else: return 'Error: Missing data.'
+        else: return decode
+    else: return token
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

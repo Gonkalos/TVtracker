@@ -32,14 +32,16 @@ def createDatabase():
                                                          Rating int NOT NULL, \
                                                          UserID int NOT NULL, \
                                                          PRIMARY KEY (IMDbID), \
-                                                         FOREIGN KEY (UserID) REFERENCES Users(UserID));')
+                                                         FOREIGN KEY (UserID) REFERENCES Users(UserID), \
+                                                         UNIQUE(IMDbID, UserID));')
     # Create episodes table
     mycursor.execute('CREATE TABLE IF NOT EXISTS Episodes (Season int NOT NULL, \
                                                            EpisodesSeen int NOT NULL, \
                                                            UserID int NOT NULL, \
                                                            IMDbID varchar(9) NOT NULL, \
                                                            FOREIGN KEY (UserID) REFERENCES Users(UserID), \
-                                                           FOREIGN KEY (IMDbID) REFERENCES Series(IMDbID));')
+                                                           FOREIGN KEY (IMDbID) REFERENCES Series(IMDbID), \
+                                                           UNIQUE(Season, IMDbID, UserID));')
     mycursor.close()
     mydb.close()
 
@@ -62,3 +64,11 @@ def addSeries(email, imdbID):
 # Remove series from user's list
 def removeSeries(email, imdbID):
     return series.removeSeries(email, imdbID)
+
+# Update series rating
+def rateSeries(email, imdbID, rating):
+    return series.rateSeries(email, imdbID, rating)
+
+# Update series status
+def updateSeriesStatus(email, imdbID, status, episodes):
+    return series.updateSeriesStatus(email, imdbID, status, episodes)
