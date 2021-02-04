@@ -1,5 +1,5 @@
 # Ignore configurations file
-Backend/Utils/configs.py
+/Backend/Utils/configs.py
 
-# macOs ignores 
+# Ignore macOs hidden files
 *.DS_Store
