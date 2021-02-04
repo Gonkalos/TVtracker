@@ -1,14 +1,14 @@
 from flask import Flask, request
 import requests
 import json
+import auxiliaries as aux
 import Utils.configs as configs
 import Utils.token as tokens
+import Database.db_main as mydb
 from Models.user import User
 from Models.series import Series, SearchSeries
-from Database.db import Database
 
 # Initialize database
-mydb = Database(configs.DB_USER, configs.DB_PASSWORD, configs.DB_NAME)
 mydb.createDatabase()
 
 # Initialize a Flask server
@@ -52,7 +52,7 @@ def login():
 @app.route('/ChangePassword', methods=['POST'])
 def changePassword():
     # Validate Authorization Token
-    bearer_check, token = checkAuth(request.headers)
+    bearer_check, token = aux.checkAuth(request.headers)
     if bearer_check:
         valid_check, decode = tokens.decode_auth_token(token)
         if valid_check:
@@ -74,7 +74,7 @@ def changePassword():
 @app.route('/GetSeries', methods=['POST'])
 def getSeries():
     # Validate Authorization Token
-    bearer_check, token = checkAuth(request.headers)
+    bearer_check, token = aux.checkAuth(request.headers)
     if bearer_check:
         valid_check, decode = tokens.decode_auth_token(token)
         if valid_check:
@@ -91,7 +91,7 @@ def getSeries():
                 if status == 200:
                     jsonResponse = response.json()
                     # Get number of episodes for each season
-                    episodes_check, episodes = getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
                     if episodes_check:
                         # Create series
                         series = Series(jsonResponse['imdbID'], jsonResponse['Title'], jsonResponse['Year'], jsonResponse['Genre'], 
@@ -109,7 +109,7 @@ def getSeries():
 @app.route('/SearchSeries', methods=['POST'])
 def searchSeries():
     # Validate Authorization Token
-    bearer_check, token = checkAuth(request.headers)
+    bearer_check, token = aux.checkAuth(request.headers)
     if bearer_check:
         valid_check, decode = tokens.decode_auth_token(token)
         if valid_check:
@@ -140,41 +140,39 @@ def searchSeries():
 # Add Series
 @app.route('/AddSeries', methods=['POST'])
 def addSeries():
-    pass
+    # Validate Authorization Token
+    bearer_check, token = aux.checkAuth(request.headers)
+    if bearer_check:
+        valid_check, decode = tokens.decode_auth_token(token)
+        if valid_check:
+            # Get body parameters
+            data = request.get_json()
+            parameters = ['imdbID']
+            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+                imdbID = data['imdbID']
+                return mydb.addSeries(decode, imdbID)
+            else: return 'Error: Missing data.'
+        else: return decode
+    else: return token
 
 
-# Check for Bearer Token Authentication
-def checkAuth(headers):
-    if 'Authorization' in headers:
-        auth = str(headers['Authorization']).split()
-        if auth[0] == 'Bearer': return True, auth[1]
-        else: return False, 'Error: Missing Bearer Token Authorization.'
-    else: return False, 'Error: Missing Bearer Token Authorization.'
-
-
-# Get the number of episodes of a season from a series
-def getSeasonEpisodes(title, season):
-    # Send request
-    response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 't': title, 'Season': season})
-    # Get response status code
-    status = response.status_code
-    # Check response status 
-    if status == 200:
-        jsonResponse = response.json()
-        totalEpisodes = len(jsonResponse['Episodes'])
-        return True, totalEpisodes
-    else: return False, 'Error: OMDb response status ' + str(status)
-
-
-# Get the number of episodes of all seasons from a series
-def getTotalEpisodes(title, totalSeasons):
-    episodes = {}
-    for season in range(1, totalSeasons + 1):
-        check, response = getSeasonEpisodes(title, season)
-        if check:
-            episodes[season] = response
-        else: return False, response
-    return True, episodes
+# Remove Series
+@app.route('/RemoveSeries', methods=['POST'])
+def removeSeries():
+    # Validate Authorization Token
+    bearer_check, token = aux.checkAuth(request.headers)
+    if bearer_check:
+        valid_check, decode = tokens.decode_auth_token(token)
+        if valid_check:
+            # Get body parameters
+            data = request.get_json()
+            parameters = ['imdbID']
+            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+                imdbID = data['imdbID']
+                return mydb.removeSeries(decode, imdbID)
+            else: return 'Error: Missing data.'
+        else: return decode
+    else: return token
 
 
 if __name__ == '__main__':

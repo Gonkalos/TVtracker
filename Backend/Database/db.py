@@ -32,23 +32,20 @@ class Database:
                                                             Email varchar(100) NOT NULL, \
                                                             Password varchar(200) NOT NULL, \
                                                             PRIMARY KEY (UserID));')
-        #mydb.commit()
         # Create series table
-        mycursor.execute('CREATE TABLE IF NOT EXISTS Series (IMDbID int NOT NULL, \
-                                                             Status varchar(100) NOT NULL, \
+        mycursor.execute('CREATE TABLE IF NOT EXISTS Series (IMDbID varchar(9) NOT NULL, \
+                                                             Status varchar(13) NOT NULL, \
                                                              Rating int NOT NULL, \
                                                              UserID int NOT NULL, \
                                                              PRIMARY KEY (IMDbID), \
                                                              FOREIGN KEY (UserID) REFERENCES Users(UserID));')
-        #mydb.commit()
         # Create episodes table
         mycursor.execute('CREATE TABLE IF NOT EXISTS Episodes (Season int NOT NULL, \
                                                                EpisodesSeen int NOT NULL, \
                                                                UserID int NOT NULL, \
-                                                               IMDbID int NOT NULL, \
+                                                               IMDbID varchar(9) NOT NULL, \
                                                                FOREIGN KEY (UserID) REFERENCES Users(UserID), \
                                                                FOREIGN KEY (IMDbID) REFERENCES Series(IMDbID));')
-        #mydb.commit()
         mycursor.close()
         mydb.close()
 
@@ -61,8 +58,11 @@ class Database:
         result = mycursor.fetchone()
         mycursor.close()
         mydb.close()
-        if myhash.verify_password(result[0], password): return True 
+        if (str(result) != 'None'):
+            if myhash.verify_password(result[0], password): return True 
+            else: return False
         else: return False
+
 
     # Insert user 
     def insertUser(self, username, email, password):
@@ -102,3 +102,53 @@ class Database:
             mycursor.close()
             mydb.close()
             return 'Error: Incorrect password.'
+
+    # Add series to user's list
+    def addSeries(self, email, imdbID):
+        mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
+        mycursor = mydb.cursor()
+        mycursor.execute(f'SELECT UserID FROM Users WHERE Email = \'{email}\' LIMIT 1')
+        userID = str(mycursor.fetchone())
+        if userID != 'None': 
+            mycursor.execute(f'SELECT * FROM Series WHERE UserID = \'{userID[1]}\' LIMIT 1')
+            count = str(mycursor.fetchone())
+            if count == 'None':
+                mycursor.execute(f'INSERT INTO Series (IMDbID, Status, Rating, UserID) VALUES (\'{imdbID}\', \'Plan To Watch\', -1, {userID[1]});')
+                mydb.commit()
+                mycursor.close()
+                mydb.close()
+                return 'Success'
+            else:
+                mycursor.close()
+                mydb.close()
+                return 'Error: Series already added.'
+        else: 
+            mycursor.close()
+            mydb.close()
+            return 'Error: User not found.'
+
+    # Remove series from user's list
+    def removeSeries(self, email, imdbID):
+        mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
+        mycursor = mydb.cursor()
+        mycursor.execute(f'SELECT UserID FROM Users WHERE Email = \'{email}\' LIMIT 1')
+        userID = str(mycursor.fetchone())
+        if userID != 'None': 
+            mycursor.execute(f'SELECT * FROM Series WHERE UserID = \'{userID[1]}\' LIMIT 1')
+            count = str(mycursor.fetchone())
+            if count != 'None':
+                mycursor.execute(f'DELETE FROM Series WHERE IMDbID = \'{imdbID}\' AND UserID = {userID[1]};')
+                mydb.commit()
+                mycursor.execute(f'DELETE FROM Episodes WHERE IMDbID = \'{imdbID}\' AND UserID = {userID[1]};')
+                mydb.commit()
+                mycursor.close()
+                mydb.close()
+                return 'Success'
+            else:
+                mycursor.close()
+                mydb.close()
+                return 'Error: Series not in list.'
+        else: 
+            mycursor.close()
+            mydb.close()
+            return 'Error: User not found.'
