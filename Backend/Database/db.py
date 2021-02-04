@@ -14,14 +14,14 @@ class Database:
         # Create user
         mydb = mysql.connector.connect(host='localhost', user='root')
         mycursor = mydb.cursor()
-        mycursor.execute('CREATE USER IF NOT EXISTS \'' + self.db_username + '\'@\'localhost\' IDENTIFIED BY \'' + self.db_password + '\';')
-        mycursor.execute('GRANT ALL PRIVILEGES ON *.* TO \'' + self.db_username + '\'@\'localhost\';')
+        mycursor.execute(f'CREATE USER IF NOT EXISTS \'{self.db_username}\'@\'localhost\' IDENTIFIED BY \'{self.db_password}\';')
+        mycursor.execute(f'GRANT ALL PRIVILEGES ON *.* TO \'{self.db_username}\'@\'localhost\';')
         mycursor.close()
         mydb.close()
         # Create database
         mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password)
         mycursor = mydb.cursor()
-        mycursor.execute('CREATE DATABASE IF NOT EXISTS ' + self.db_name)
+        mycursor.execute(f'CREATE DATABASE IF NOT EXISTS {self.db_name}')
         mycursor.close()
         mydb.close()
         mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
@@ -57,7 +57,7 @@ class Database:
         mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
         mycursor = mydb.cursor()
         # Validate user
-        mycursor.execute('SELECT Password FROM Users WHERE Email = \'' + email + '\' LIMIT 1')
+        mycursor.execute(f'SELECT Password FROM Users WHERE Email = \'{email}\' LIMIT 1')
         result = mycursor.fetchone()
         mycursor.close()
         mydb.close()
@@ -70,15 +70,15 @@ class Database:
         mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
         mycursor = mydb.cursor()
         # Validate username
-        mycursor.execute('SELECT * FROM Users WHERE Username = \'' + username + '\' LIMIT 1')
+        mycursor.execute(f'SELECT * FROM Users WHERE Username = \'{username}\' LIMIT 1')
         result = mycursor.fetchone()
         if str(result) != 'None': return 'Error: Username or email already in use.'
         # Validate email
-        mycursor.execute('SELECT * FROM Users WHERE Email = \'' + email + '\' LIMIT 1')
+        mycursor.execute(f'SELECT * FROM Users WHERE Email = \'{email}\' LIMIT 1')
         result = mycursor.fetchone()
         if str(result) != 'None': return 'Error: Username or email already in use.'
         # Insert user
-        mycursor.execute('INSERT INTO Users (Username, Email, Password) VALUES (\'' + username + '\', \'' + email + '\', \'' + hashed_password + '\');')
+        mycursor.execute(f'INSERT INTO Users (Username, Email, Password) VALUES (\'{username}\', \'{email}\', \'{hashed_password}\');')
         mydb.commit()
         mycursor.close()
         mydb.close()
@@ -89,11 +89,11 @@ class Database:
         mydb = mysql.connector.connect(host='localhost', user=self.db_username, passwd=self.db_password, database=self.db_name)
         mycursor = mydb.cursor()
         # Validate old password
-        mycursor.execute('SELECT Password FROM Users WHERE Email = \'' + email + '\' LIMIT 1')
+        mycursor.execute(f'SELECT Password FROM Users WHERE Email = \'{email}\' LIMIT 1')
         result = mycursor.fetchone()
         if myhash.verify_password(result[0], old_password):
             hashed_password = myhash.hash_password(new_password) 
-            mycursor.execute('UPDATE Users SET Password = \'' + hashed_password + '\' WHERE Email = \'' + email + '\';')
+            mycursor.execute(f'UPDATE Users SET Password = \'{hashed_password}\' WHERE Email = \'{email}\';')
             mydb.commit()
             mycursor.close()
             mydb.close()

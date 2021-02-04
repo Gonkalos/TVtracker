@@ -1,1 +1,5 @@
+# Ignore configurations file
+Backend/Utils/configs.py
+
+# macOs ignores 
 *.DS_Store

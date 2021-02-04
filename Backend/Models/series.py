@@ -21,18 +21,18 @@ class Series:
 
     # To json string
     def json(self):
-        dic = {}
-        dic['Title'] = self.title
-        dic['Year'] = self.year
-        dic['Genre'] = self.genre
-        dic['Director'] = self.director
-        dic['Writer'] = self.writer
-        dic['Plot'] = self.plot
-        dic['Poster'] = self.poster
-        dic['IMDbRating'] = self.imdbRating
-        dic['TotalSeasons'] = self.totalSeasons
-        dic['TotalEpisodes'] = self.totalEpisodes
-        return json.dumps(dic)
+        attributes = {}
+        attributes['Title'] = self.title
+        attributes['Year'] = self.year
+        attributes['Genre'] = self.genre
+        attributes['Director'] = self.director
+        attributes['Writer'] = self.writer
+        attributes['Plot'] = self.plot
+        attributes['Poster'] = self.poster
+        attributes['IMDbRating'] = self.imdbRating
+        attributes['TotalSeasons'] = self.totalSeasons
+        attributes['TotalEpisodes'] = self.totalEpisodes
+        return json.dumps(attributes)
 
 
 class SearchSeries:
@@ -45,11 +45,11 @@ class SearchSeries:
 
     # To json string
     def json(self):
-        dic = {}
-        dic['IMDbID'] = self.imdbID
-        dic['Title'] = self.title
-        dic['Poster'] = self.poster
-        return json.dumps(dic)
+        attributes = {}
+        attributes['IMDbID'] = self.imdbID
+        attributes['Title'] = self.title
+        attributes['Poster'] = self.poster
+        return json.dumps(attributes)
 
 
 class UserSeries:
