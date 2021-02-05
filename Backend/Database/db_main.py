@@ -72,3 +72,11 @@ def rateSeries(email, imdbID, rating):
 # Update series status
 def updateSeriesStatus(email, imdbID, status, episodes):
     return series.updateSeriesStatus(email, imdbID, status, episodes)
+
+# Check one episode as seen
+def checkEpisode(email, imdbID, episodes):
+    return series.checkEpisode(email, imdbID, episodes)
+
+# Update number of episodes seen
+def updateEpisodes(email, imdbID, episodes, updated_episode, updated_season):
+    return series.updateEpisodes(email, imdbID, episodes, updated_episode, updated_season)

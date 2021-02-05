@@ -177,7 +177,7 @@ def removeSeries():
 
 # Update series status
 @app.route('/UpdateSeriesStatus', methods=['POST'])
-def UpdateSeriesStatus():
+def updateSeriesStatus():
     # Validate Authorization Token
     bearer_check, token = aux.checkAuth(request.headers)
     if bearer_check:
@@ -199,6 +199,7 @@ def UpdateSeriesStatus():
                     # Get number of episodes for each season
                     episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
                     if episodes_check: return mydb.updateSeriesStatus(decode, imdbID, seriesStatus, episodes)
+                    else: return episodes
                 else: return 'Error: OMDb response status ' + str(status)
             else: return 'Error: Missing data.'
         else: return decode
@@ -220,6 +221,73 @@ def rankSeries():
                 imdbID = data['imdbID']
                 rating = data['rating']
                 return mydb.rateSeries(decode, imdbID, rating)
+            else: return 'Error: Missing data.'
+        else: return decode
+    else: return token
+
+
+# Check one episode as seen 
+@app.route('/CheckEpisode', methods=['POST'])
+def checkEpisode():
+    # Validate Authorization Token
+    bearer_check, token = aux.checkAuth(request.headers)
+    if bearer_check:
+        valid_check, decode = tokens.decode_auth_token(token)
+        if valid_check:
+            # Get body parameters
+            data = request.get_json()
+            parameters = ['imdbID']
+            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+                imdbID = data['imdbID']
+                # Send request
+                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
+                # Get response status code
+                status = response.status_code
+                # Check response status 
+                if status == 200:
+                    jsonResponse = response.json()
+                    # Get number of episodes for each season
+                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                    if episodes_check: return mydb.checkEpisode(decode, imdbID, episodes)
+                    else: return episodes
+                else: return 'Error: OMDb response status ' + str(status)
+            else: return 'Error: Missing data.'
+        else: return decode
+    else: return token
+
+
+# Update number of episodes seen
+@app.route('/UpdateEpisodes', methods=['POST'])
+def updateEpisodes():
+    # Validate Authorization Token
+    bearer_check, token = aux.checkAuth(request.headers)
+    if bearer_check:
+        valid_check, decode = tokens.decode_auth_token(token)
+        if valid_check:
+            # Get body parameters
+            data = request.get_json()
+            parameters = ['imdbID', 'updated_episode', 'updated_season']
+            if all(elem in list(data) for elem in parameters) and len(data) >= 3:
+                imdbID = data['imdbID']
+                updated_episode = data['updated_episode']
+                updated_season = data['updated_season']
+                # Send request
+                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
+                # Get response status code
+                status = response.status_code
+                # Check response status 
+                if status == 200:
+                    jsonResponse = response.json()
+                    # Get number of episodes for each season
+                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                    if episodes_check: 
+                        if updated_season in episodes.keys():
+                            if updated_episode <= episodes[updated_season]:
+                                return mydb.updateEpisodes(decode, imdbID, episodes, updated_episode, updated_season)
+                            else: return 'Error: Invalid episode.'
+                        else: return 'Error: Invalid season.'
+                    else: return episodes
+                else: return 'Error: OMDb response status ' + str(status)
             else: return 'Error: Missing data.'
         else: return decode
     else: return token
