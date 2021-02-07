@@ -14,15 +14,15 @@ A Flask-driven RESTful API.
 
 ## Installation / Preparation
 
-- Ensure that you have the latest versions of Python3 and MySQL globally installed in your computer.
+1. Ensure that you have the latest versions of Python3 and MySQL globally installed in your computer.
 
 > If you are running macOS, make sure to set Python3 and pip3 as default.
 
-- To install all dependencies go to /Backend/Utils and run the following command:
+2. To install all dependencies go to /Backend/Utils and run the following command:
 ```
 pip install -r requirements.txt
 ```
-- To set the global variables go to /Backend/Utils and create a file configs.py with the following syntax:
+3. To set the global variables go to /Backend/Utils and create a file configs.py with the following syntax:
 ```
 # OMDb API
 OMDB_API_URL = 'http://www.omdbapi.com/'
