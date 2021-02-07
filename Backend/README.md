@@ -15,9 +15,11 @@ A Flask-driven RESTful API.
 
 - Ensure that you have the latest versions of Python3 and MYSQL globally installed in your computer.
 
+> If you are running macOS, by default it ships with Python2. To set Python3 as default follow the instructions [here](https://dev.to/malwarebo/how-to-set-python3-as-a-default-python-version-on-mac-4jjf).
+
 - To install all dependencies cd into /Backend/Utils and run the following command:
 ```
-sh dependencies.sh
+pip install -r requirements.txt
 ```
 - In /Backend/Utils create a file configs.py with the following syntax:
 ```
