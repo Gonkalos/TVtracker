@@ -83,3 +83,4 @@ Body fields:
 Possible errors:
 
 | Error Code | Description |
+|------------|-------------|
