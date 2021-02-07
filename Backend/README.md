@@ -74,6 +74,8 @@ sh start.sh
 
 ### TVtracker API
 
+> Please note that all the body fields for all requests are required. 
+
 #### Create an account
 
 ```
