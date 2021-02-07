@@ -14,9 +14,27 @@ A Flask-driven RESTful API.
 - Ensure that you have the latest versions of Python3 and MYSQL globally installed in your computer.
 
 - To install all depecendices cd into /Backend/Utils and run the following command:
-
 ```
 sh dependencies.sh
+```
+- In /Backend/Utils create a file configs.py with the following syntax:
+```
+# OMDb API
+OMDB_API_URL = 'http://www.omdbapi.com/'
+OMDB_API_KEY = 'your-OMDb-key'
+
+# MySQL Database
+DB_USERNAME = 'your-MySQL-username' 
+DB_PASSWORD = 'your-MySQL-user-password'
+DB_NAME = 'your-MySQL-database-name'
+
+# JWT Authentication
+JWT_SECRET_KEY = 'your-JWT-secret-key'
+JWT_ALGORITHM = 'JWT-algorithm'
+```
+To generate a JWT secret key cd into /Backend/Utils and run the following command:
+```
+sh secretKey.py
 ```
 
 ## Usage
