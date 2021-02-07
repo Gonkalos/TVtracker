@@ -2,6 +2,8 @@
 
 A Flask-driven RESTful API.
 
+---
+
 ## Technologies Used
 
 - [Python](https://www.python.org) - A programming language that lets you work quickly and integrate systems more effectively.
@@ -36,5 +38,6 @@ JWT_ALGORITHM = 'JWT-algorithm'
 ```
 sh secretKey.py
 ```
+---
 
 ## Usage
