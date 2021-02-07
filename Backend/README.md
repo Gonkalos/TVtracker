@@ -11,6 +11,7 @@ A Flask-driven RESTful API.
 - [Getting Started](#Getting-Started)
 - [How To Use](#How-To-Use)
   - [Compile And Run](#Compile-And-Run)
+  - [TVtracker API](#TVtracker-API)
 
 
 ---
