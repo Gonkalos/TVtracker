@@ -17,7 +17,7 @@ A Flask-driven RESTful API.
 
 > If you are running macOS, by default it ships with Python2. To set Python3 as default follow the instructions [here](https://dev.to/malwarebo/how-to-set-python3-as-a-default-python-version-on-mac-4jjf).
 
-- To install all dependencies cd into /Backend/Utils and run the following command:
+- To install all dependencies go to /Backend/Utils and run the following command:
 ```
 pip install -r requirements.txt
 ```
@@ -36,7 +36,7 @@ DB_NAME = 'your-MySQL-database-name'
 JWT_SECRET_KEY = 'your-JWT-secret-key'
 JWT_ALGORITHM = 'JWT-algorithm'
 ```
-> To generate a JWT secret key cd into /Backend/Utils and run the following command:
+> To generate a JWT secret key go to /Backend/Utils and run the following command:
 ```
 sh secretKey.py
 ```
