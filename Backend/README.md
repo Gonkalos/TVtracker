@@ -6,7 +6,7 @@ A Flask-driven RESTful API.
 
 ## Table Of Contents
 
-- [Tecnologies Used](##Technologies Used)
+- [Tecnologies Used](##Technologies_Used)
 - [Instalation](##Installation)
 - [Getting Started](##Getting Started)
 - [How To Use](##How To Use)
