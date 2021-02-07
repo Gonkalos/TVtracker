@@ -51,7 +51,33 @@ python secretKey.py
 
 ## How To Use
 
-To start the server simply run the following command wich compiles and runs the code:
+### Compile And Run
+
+To start the server simply run the following command:
 ```
 sh start.sh
 ```
+
+### TVtracker API
+
+#### Create an account
+
+```
+POST /CreateAccount
+Host: http://127.0.0.1:5000
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+
+{
+    "username": "Gonkalos",
+    "email": "gonkalos@gmail.com",
+    "password1": "mypassword",
+    "password2": "mypassword"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| username | string | username of the new account
