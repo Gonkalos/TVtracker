@@ -12,17 +12,22 @@ A Flask-driven RESTful API.
 - [JSON Web Tokens](https://jwt.io) (JWT) - An open, industry standard RFC 7519 method for representing claims securely between two parties.
 - [OMDb API](http://www.omdbapi.com) - A RESTful web service to obtain movies and TV series information.
 
-## Installation / Preparation
+## Getting Started
 
-1. Ensure that you have the latest versions of Python3 and MySQL globally installed in your computer.
+### Installation
+
+- Ensure that you have the latest versions of Python3 and MySQL globally installed in your computer.
 
 > If you are running macOS, make sure to set Python3 and pip3 as default.
 
-2. To install all dependencies go to /Backend/Utils and run the following command:
+- To install all dependencies go to /Backend/Utils and run the following command:
 ```
 pip install -r requirements.txt
 ```
-3. To set the global variables go to /Backend/Utils and create a file configs.py with the following syntax:
+
+### Preparation
+
+- To set the global variables go to /Backend/Utils and create a file configs.py with the following syntax:
 ```
 # OMDb API
 OMDB_API_URL = 'http://www.omdbapi.com/'
