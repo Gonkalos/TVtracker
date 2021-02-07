@@ -10,11 +10,9 @@ A Flask-driven RESTful API.
 
 ## Installation / Preparation
 
-Ensure that you have the latest versions of Python3 and MYSQL globally installed in your computer.
+- Ensure that you have the latest versions of Python3 and MYSQL globally installed in your computer.
 
-### Dependencies:
-
-To install all depecendices cd into /Backend/Utils and run the following command:
+- To install all depecendices cd into /Backend/Utils and run the following command:
 
 ```
 sh dependencies.sh
