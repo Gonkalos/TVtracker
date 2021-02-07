@@ -1,5 +1,7 @@
 # Server
 
+A Flask-driven RESTful API server.
+
 ## Technologies Used
 
 - [Python](https://www.python.org) - A programming language that lets you work quickly and integrate systems more effectively.
