@@ -12,6 +12,8 @@ A Flask-driven RESTful API.
 - [JSON Web Tokens](https://jwt.io) (JWT) - An open, industry standard RFC 7519 method for representing claims securely between two parties.
 - [OMDb API](http://www.omdbapi.com) - A RESTful web service to obtain movies and TV series information.
 
+---
+
 ## Getting Started
 
 ### Installation
