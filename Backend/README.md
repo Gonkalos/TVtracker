@@ -1,6 +1,6 @@
 # Server
 
-A Flask-driven RESTful API server.
+A Flask-driven RESTful API.
 
 ## Technologies Used
 
