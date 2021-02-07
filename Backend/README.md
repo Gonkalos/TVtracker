@@ -50,3 +50,8 @@ python secretKey.py
 ---
 
 ## How To Use
+
+To start the server simply run the following command wich compiles and runs the code:
+```
+sh start.sh
+```
