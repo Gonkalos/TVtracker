@@ -69,13 +69,6 @@ Authorization: Bearer Token
 Content-Type: application/json
 Accept: text/html
 Accept-Charset: charset=utf-8
-
-{
-    "username": "Gonkalos",
-    "email": "gonkalos@gmail.com",
-    "password1": "mypassword",
-    "password2": "mypassword"
-}
 ```
 
 | Field | Type | Description |
