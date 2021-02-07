@@ -21,7 +21,7 @@ A Flask-driven RESTful API.
 ```
 pip install -r requirements.txt
 ```
-- In /Backend/Utils create a file configs.py with the following syntax:
+- To set the global variables go to /Backend/Utils and create a file configs.py with the following syntax:
 ```
 # OMDb API
 OMDB_API_URL = 'http://www.omdbapi.com/'
