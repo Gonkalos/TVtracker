@@ -17,7 +17,7 @@ A Flask-driven RESTful API.
 ```
 sh dependencies.sh
 ```
-- In /Backend/Utils create a file configs.py with the following syntax:
+* In /Backend/Utils create a file configs.py with the following syntax:
 ```
 # OMDb API
 OMDB_API_URL = 'http://www.omdbapi.com/'
@@ -32,7 +32,7 @@ DB_NAME = 'your-MySQL-database-name'
 JWT_SECRET_KEY = 'your-JWT-secret-key'
 JWT_ALGORITHM = 'JWT-algorithm'
 ```
-To generate a JWT secret key cd into /Backend/Utils and run the following command:
+  * To generate a JWT secret key cd into /Backend/Utils and run the following command:
 ```
 sh secretKey.py
 ```
