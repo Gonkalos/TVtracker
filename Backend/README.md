@@ -81,3 +81,5 @@ Body fields:
 | password2 | string | second entry of the password of the new account |
 
 Possible errors:
+
+| Error Code | Description |
