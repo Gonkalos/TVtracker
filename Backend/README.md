@@ -33,8 +33,8 @@ JWT_SECRET_KEY = 'your-JWT-secret-key'
 JWT_ALGORITHM = 'JWT-algorithm'
 ```
 > To generate a JWT secret key cd into /Backend/Utils and run the following command:
-```
-sh secretKey.py
-```
+  ```
+  sh secretKey.py
+  ```
 
 ## Usage
