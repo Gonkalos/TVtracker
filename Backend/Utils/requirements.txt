@@ -1,0 +1,8 @@
+# Flask
+flask
+# Requests
+requests
+# MySQL Connector
+mysql-connector-python
+# JWT
+pyjwt
