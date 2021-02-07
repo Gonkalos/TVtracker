@@ -42,7 +42,7 @@ DB_NAME = 'your-MySQL-database-name'
 
 # JWT Authentication
 JWT_SECRET_KEY = 'your-JWT-secret-key'
-JWT_ALGORITHM = 'JWT-algorithm'
+JWT_ALGORITHM = 'your-preferred-JWT-algorithm'
 ```
 > To generate a JWT secret key go to /Backend/Utils and run the following command:
 ```
