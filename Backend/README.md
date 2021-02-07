@@ -10,6 +10,7 @@ A Flask-driven RESTful API.
 - [Instalation](#Installation)
 - [Getting Started](#Getting-Started)
 - [How To Use](#How-To-Use)
+  - [Compile And Run](#Compile-And-Run)
 
 
 ---
