@@ -14,7 +14,7 @@ A Flask-driven RESTful API.
 
 ## Installation / Preparation
 
-- Ensure that you have the latest versions of Python3 and MYSQL globally installed in your computer.
+- Ensure that you have the latest versions of Python3 and MySQL globally installed in your computer.
 
 > If you are running macOS, make sure to set Python3 and pip3 as default.
 
