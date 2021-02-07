@@ -50,4 +50,4 @@ python secretKey.py
 ```
 ---
 
-## Usage
+## How To Use
