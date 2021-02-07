@@ -38,7 +38,7 @@ JWT_ALGORITHM = 'JWT-algorithm'
 ```
 > To generate a JWT secret key go to /Backend/Utils and run the following command:
 ```
-sh secretKey.py
+python secretKey.py
 ```
 ---
 
