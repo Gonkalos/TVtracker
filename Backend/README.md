@@ -91,10 +91,10 @@ Body fields:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| username | string | username of the new account |
-| email | string | email of the new account |
-| password1 | string | first entry of the password of the new account |
-| password2 | string | second entry of the password of the new account |
+| username | string | Account username |
+| email | string | Account email |
+| password1 | string | Account password (first entry) |
+| password2 | string | Account password (second entry) |
 
 Possible errors:
 
