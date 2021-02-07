@@ -80,4 +80,7 @@ Accept-Charset: charset=utf-8
 
 | Field | Type | Description |
 |-------|------|-------------|
-| username | string | username of the new account
+| username | string | username of the new account |
+| email | string | email of the new account |
+| password1 | string | first entry of the password of the new account |
+| password2 | string | second entry of the password of the new account |
