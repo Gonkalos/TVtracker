@@ -4,6 +4,16 @@ A Flask-driven RESTful API.
 
 ---
 
+##Table Of Contents
+
+- [Tecnologies Used](## Technologies Used)
+- [Instalation](## Installation)
+- [Getting Started](## Getting Started)
+- [How To Use](## How To Use)
+
+
+---
+
 ## Technologies Used
 
 - [Python](https://www.python.org) - A programming language that lets you work quickly and integrate systems more effectively.
