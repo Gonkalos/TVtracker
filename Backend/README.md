@@ -74,13 +74,16 @@ sh start.sh
 
 ### TVtracker API
 
+```
+Host: http://127.0.0.1:5000
+```
+
 > Please note that all the body fields for all requests are required. 
 
 #### Create an account
 
 ```
 POST /CreateAccount
-Host: http://127.0.0.1:5000
 Authorization: Bearer Token
 Content-Type: application/json
 Accept: text/html
