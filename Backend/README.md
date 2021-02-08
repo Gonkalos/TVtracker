@@ -77,6 +77,7 @@ sh start.sh
 
 <details>
   <summary> Create an account </summary>
+  <p>
 
    ```
    POST http://127.0.0.1:5000/CreateAccount
@@ -95,10 +96,12 @@ sh start.sh
    | password1 | string | Account password (first entry) |
    | password2 | string | Account password (second entry) |
 
+  </p>
 </details>
 
 <details>
   <summary> Login </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/Login
@@ -115,10 +118,12 @@ sh start.sh
   | email | string | Account email |
   | password | string | Account password |
 
+  </p>
 </details>
 
 <details>
   <summary> Change Password </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/ChangePassword
@@ -136,10 +141,12 @@ sh start.sh
   | new_password1 | string | Account new password (first entry) |
   | new_password2 | string | Account new password (second entry) |
 
+  </p>
 </details>
 
 <details>
   <summary> Search Series </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/SearchSeries
@@ -155,10 +162,12 @@ sh start.sh
   |-------|------|-------------|
   | search | string | Series title |
 
+  </p>
 </details>
 
 <details>
   <summary> Get Series </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/GetSeries
@@ -174,10 +183,12 @@ sh start.sh
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
+  </p>
 </details>
 
 <details>
   <summary> Add Series </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/AddSeries
@@ -193,10 +204,12 @@ sh start.sh
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
+  </p>
 </details>
 
 <details>
   <summary> Remove Series </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/Remove
@@ -212,10 +225,12 @@ sh start.sh
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
+  </p>
 </details>
 
 <details>
   <summary> Update Series Status </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/UpdateSeriesStatus
@@ -232,10 +247,12 @@ sh start.sh
   | imdbID | string | | Series IMDb id |
   | status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
 
+  </p>
 </details>
 
 <details>
   <summary> Check Episode </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/CheckEpisode
@@ -251,10 +268,12 @@ sh start.sh
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
+  </p>
 </details>
 
 <details>
   <summary> Update Episodes </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/UpdateEpisodes
@@ -272,10 +291,12 @@ sh start.sh
   | updated_episode | integer | Last episode seen |
   | updated_season | integer | Season of the last episode seen |
 
+  </p>
 </details>
 
 <details>
   <summary> Rate Series </summary>
+  <p>
 
   ```
   POST http://127.0.0.1:5000/RateSeries
@@ -292,6 +313,7 @@ sh start.sh
   | imdbID | string | | Series IMDb id |
   | rating | integer | 1, 2, 3, 4, 5 | Series rating |
 
+  </p>
 </details>
 
 <details>
