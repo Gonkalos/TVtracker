@@ -83,15 +83,15 @@ Host: http://127.0.0.1:5000
 #### User
 
 <details>
-<summary> Create an account </summary>
+  <summary> Create an account </summary>
   
-```
-POST /CreateAccount
-Authorization: None
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /CreateAccount
+  Authorization: None
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
 Body fields:
 
