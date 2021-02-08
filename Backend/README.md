@@ -84,7 +84,7 @@ Host: http://127.0.0.1:5000
 
 ```
 POST /CreateAccount
-Authorization: Bearer Token
+Authorization: None
 Content-Type: application/json
 Accept: text/html
 Accept-Charset: charset=utf-8
@@ -98,6 +98,104 @@ Body fields:
 | email | string | Account email |
 | password1 | string | Account password (first entry) |
 | password2 | string | Account password (second entry) |
+
+#### Login
+
+```
+POST /Login
+Authorization: None
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| email | string | Account email |
+| password | string | Account password |
+
+#### Search Series
+
+```
+POST /SearchSeries
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| search | string | Series title |
+
+#### Get Series
+
+```
+POST /GetSeries
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| imdbID | string | Series IMDb id |
+
+#### Add Series
+
+```
+POST /AddSeries
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| imdbID | string | Series IMDb id |
+
+#### Remove Series
+
+```
+POST /Remove
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| imdbID | string | Series IMDb id |
+
+#### Update Series Status
+
+```
+POST /UpdateSeriesStatus
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Valid Options | Description |
+|-------|------|---------------|-------------|
+| imdbID | string | Series IMDb id |
+| status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
 
 #### Errors
 
