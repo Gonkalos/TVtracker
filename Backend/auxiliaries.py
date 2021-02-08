@@ -7,8 +7,8 @@ def checkAuth(headers):
     if 'Authorization' in headers:
         auth = str(headers['Authorization']).split()
         if auth[0] == 'Bearer': return True, auth[1]
-        else: return False, 'Error: Missing Bearer Token Authorization.'
-    else: return False, 'Error: Missing Bearer Token Authorization.'
+        else: return False, 'Missing Bearer Token Authorization'
+    else: return False, 'Missing Bearer Token Authorization'
 
 # Get the number of episodes of a season from a series
 def getSeasonEpisodes(title, season):
@@ -21,7 +21,7 @@ def getSeasonEpisodes(title, season):
         jsonResponse = response.json()
         totalEpisodes = len(jsonResponse['Episodes'])
         return True, totalEpisodes
-    else: return False, 'Error: OMDb response status ' + str(status)
+    else: return False, 'OMDb response status code ' + str(status)
 
 # Get the number of episodes of all seasons from a series
 def getTotalEpisodes(title, totalSeasons):

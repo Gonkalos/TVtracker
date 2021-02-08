@@ -12,9 +12,9 @@ def encode_auth_token(user_email):
             'iat': datetime.datetime.utcnow(),
             'sub': user_email
         }
-        return jwt.encode(payload, configs.JWT_SECRET_KEY, configs.JWT_ALGORITHM)
+        return True, jwt.encode(payload, configs.JWT_SECRET_KEY, configs.JWT_ALGORITHM)
     except Exception: 
-        return 'Error: Problem generating token.'
+        return False, 'Problem generating token'
 
 # Decode authorization token
 def decode_auth_token(token):
@@ -22,7 +22,7 @@ def decode_auth_token(token):
         payload = jwt.decode(token, configs.JWT_SECRET_KEY, configs.JWT_ALGORITHM)
         return True, payload['sub']
     except jwt.ExpiredSignatureError: 
-        return False, 'Error: Signature expired. Please log in again.'
+        return False, 'Signature expired'
     except jwt.InvalidTokenError: 
-        return False, 'Error: Invalid token. Please log in again.'
+        return False, 'Invalid token'
 

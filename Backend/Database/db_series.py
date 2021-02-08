@@ -1,6 +1,9 @@
 import mysql.connector
 import Utils.configs as configs
 
+# Series status enumerator
+status = ['Watching', 'Rewatching', 'Completed', 'Plan To Watch']
+
 # Add series to user's list
 def addSeries(email, imdbID):
     mydb = mysql.connector.connect(host='localhost', user=configs.DB_USERNAME, passwd=configs.DB_PASSWORD, database=configs.DB_NAME)
@@ -20,11 +23,11 @@ def addSeries(email, imdbID):
         else:
             mycursor.close()
             mydb.close()
-            return 'Error: Series already added.'
+            return 'Series already added'
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: User not found.'
+        return 'User not found'
 
 # Remove series from user's list
 def removeSeries(email, imdbID):

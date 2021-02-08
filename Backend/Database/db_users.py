@@ -34,15 +34,15 @@ def insertUser(username, email, password):
             mydb.commit()
             mycursor.close()
             mydb.close()
-            return 'Success'
+            return True
         else: 
             mycursor.close()
             mydb.close()
-            return 'Error: Username or email already in use.'
+            return False
     else:
         mycursor.close()
         mydb.close() 
-        return 'Error: Username or email already in use.'
+        return False
         
 # Change user's password
 def changePassword(email, old_password, new_password):
@@ -57,8 +57,8 @@ def changePassword(email, old_password, new_password):
         mydb.commit()
         mycursor.close()
         mydb.close()
-        return 'Success'
+        return True
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: Incorrect password.'
+        return False

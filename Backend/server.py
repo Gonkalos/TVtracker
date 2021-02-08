@@ -1,12 +1,10 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 import json
 import auxiliaries as aux
 import Utils.configs as configs
 import Utils.token as tokens
 import Database.db_main as mydb
-from Models.user import User
-from Models.series import Series, SearchSeries
 
 # Initialize database
 mydb.createDatabase()
@@ -28,9 +26,10 @@ def createAccount():
         password2 = data['password2']
         # Validate data
         if password1 == password2:
-            return mydb.insertUser(username, email, password1)
-        else: return 'Error: The passwords don\'t match.'
-    else: return 'Error: Missing data.'
+            if mydb.insertUser(username, email, password1): return 'Success', 200
+            else: return 'Username or email already in use', 400
+        else: return 'Unmatched passwords', 400
+    else: return 'Missing data', 400
 
 
 # Login
@@ -43,9 +42,12 @@ def login():
         email = data['email']
         password = data['password']
         # Validate data
-        if mydb.validateUser(email, password): return tokens.encode_auth_token(email)
-        else: return 'Error: Invalid email or password'
-    else: return 'Error: Missing data.'
+        if mydb.validateUser(email, password): 
+            generated_check, token = tokens.encode_auth_token(email)
+            if generated_check: return token, 200
+            else: return token, 500 
+        else: return 'Invalid email or password', 400
+    else: return 'Missing data', 400
 
 
 # Change Password
@@ -63,11 +65,13 @@ def changePassword():
                 new_password1 = data['new_password1']
                 new_password2 = data['new_password2']
                 # Validate Data
-                if new_password1 == new_password2: return mydb.changePassword(decode, old_password, new_password1)
-                else: return 'Error: The new passwords don\'t match.'
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+                if new_password1 == new_password2: 
+                    if mydb.changePassword(decode, old_password, new_password1): return 'Success', 200
+                    else: return 'Incorrect password', 400
+                else: return 'Unmatched passwords', 400
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 400
 
 
 # Get series by title
@@ -94,15 +98,14 @@ def getSeries():
                     episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
                     if episodes_check:
                         # Create series
-                        series = Series(jsonResponse['imdbID'], jsonResponse['Title'], jsonResponse['Year'], jsonResponse['Genre'], 
-                                        jsonResponse['Director'], jsonResponse['Writer'], jsonResponse['Plot'], jsonResponse['Poster'], 
-                                        jsonResponse['imdbRating'], episodes)
-                        return series.json()
-                    else: return episodes
-                else: return 'Error: OMDb response status ' + str(status)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+                        return jsonify(imdbID=jsonResponse['imdbID'], title=jsonResponse['Title'], year=jsonResponse['Year'], genre=jsonResponse['Genre'], 
+                                       director=jsonResponse['Director'], writer=jsonResponse['Writer'], plot=jsonResponse['Plot'], poster=jsonResponse['Poster'], 
+                                       imdbRating=jsonResponse['imdbRating'], episodes=episodes), 200
+                    else: return episodes, 502
+                else: return 'OMDb response status code ' + str(status), 502
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 400
 
 
 # Search for a series by matching titles
@@ -126,15 +129,14 @@ def searchSeries():
                 if status == 200:
                     jsonResponse = response.json()
                     results = []
-                    string = '['
                     for result in jsonResponse['Search']:
-                        series = SearchSeries(result['imdbID'], result['Title'], result['Poster'])
-                        string = string + series.json() + ','
-                    return string[:-1] + ']'
-                else: return 'Error: OMDb response status ' + str(status)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+                        series = {'imdbID': result['imdbID'], 'title': result['Title'], 'poster': result['Poster']}
+                        results.append(series)
+                    return jsonify(results = results), 200
+                else: return 'OMDb response status code ' + str(status), 502
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 400
 
 
 # Add Series
@@ -151,9 +153,9 @@ def addSeries():
             if all(elem in list(data) for elem in parameters) and len(data) >= 1:
                 imdbID = data['imdbID']
                 return mydb.addSeries(decode, imdbID)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 400
 
 
 # Remove Series
