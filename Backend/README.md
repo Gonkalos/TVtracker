@@ -136,6 +136,8 @@ Body fields:
 | new_password1 | string | Account new password (first entry) |
 | new_password2 | string | Account new password (second entry) |
 
+#### Series
+
 - Search Series
 
 ```
