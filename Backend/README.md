@@ -81,7 +81,7 @@ Host: http://127.0.0.1:5000
 > Please note that all the body fields for all requests are required. 
 
 <details>
-  <summary> User </summary>
+<summary> User </summary>
 
   <details>
   <summary> Create an account </summary>
@@ -148,10 +148,11 @@ Host: http://127.0.0.1:5000
 
 </details>
 
-#### Series
-
 <details>
-<summary> Search Series </summary>
+<summary> Series </summary>
+
+  <details>
+  <summary> Search Series </summary>
 
   ```
   POST /SearchSeries
@@ -167,9 +168,9 @@ Host: http://127.0.0.1:5000
   |-------|------|-------------|
   | search | string | Series title |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Get Series </summary>
 
   ```
@@ -186,9 +187,9 @@ Host: http://127.0.0.1:5000
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Add Series </summary>
 
   ```
@@ -205,9 +206,9 @@ Host: http://127.0.0.1:5000
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Remove Series </summary>
 
   ```
@@ -224,9 +225,9 @@ Host: http://127.0.0.1:5000
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Update Series Status </summary>
 
   ```
@@ -244,9 +245,9 @@ Host: http://127.0.0.1:5000
   | imdbID | string | | Series IMDb id |
   | status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Check Episode </summary>
 
   ```
@@ -263,9 +264,9 @@ Host: http://127.0.0.1:5000
   |-------|------|-------------|
   | imdbID | string | Series IMDb id |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Update Episodes </summary>
 
   ```
@@ -284,9 +285,9 @@ Host: http://127.0.0.1:5000
   | updated_episode | integer | Last episode seen |
   | updated_season | integer | Season of the last episode seen |
 
-</details>
+  </details>
 
-<details>
+  <details>
   <summary> Rate Series </summary>
 
   ```
@@ -304,11 +305,16 @@ Host: http://127.0.0.1:5000
   | imdbID | string | | Series IMDb id |
   | rating | integer | 1, 2, 3, 4, 5 | Series rating |
 
+  </details>
+  
 </details>
 
-#### Errors
+<details>
+<summary> Errors </summary>
 
 TVtracker uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, in the 4xx range indicate an error that failed given the information provided and in the 5xx range indicate an error with the server.
 
 | Error Code | Description |
 |------------|-------------|
+
+</details>
