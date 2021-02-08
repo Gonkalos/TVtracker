@@ -299,10 +299,10 @@ sh start.sh
   <p>
 
   TVtracker uses conventional HTTP response codes to indicate the success or failure of an API request. 
-  - Codes in the 2xx range indicate success;
-  - Codes in the 4xx range indicate an error that failed given the information provided;
-  - Codes in the 5xx range indicate an error with the server;
-  - Codes in the 6xx range indicate an error with external services (OMDb API). 
+  - Codes in the 2xx range indicate success
+  - Codes in the 4xx range indicate an error that failed given the information provided
+  - Codes in the 5xx range indicate an error with the server
+  - Codes in the 6xx range indicate an error with external services (OMDb API)
 
   | HTTP Status Code | Description |
   |------------------|-------------|
