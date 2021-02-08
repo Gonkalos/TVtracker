@@ -74,17 +74,13 @@ sh start.sh
 
 ### TVtracker API
 
-```
-Host: http://127.0.0.1:5000
-```
-
 > Please note that all the body fields for all requests are required. 
 
 <details>
   <summary> Create an account </summary>
 
    ```
-   POST /CreateAccount
+   POST http://127.0.0.1:5000/CreateAccount
    Authorization: None
    Content-Type: application/json 
    Accept: text/html
@@ -106,7 +102,7 @@ Host: http://127.0.0.1:5000
   <summary> Login </summary>
 
   ```
-  POST /Login
+  POST http://127.0.0.1:5000/Login
   Authorization: None
   Content-Type: application/json
   Accept: text/html
@@ -126,7 +122,7 @@ Host: http://127.0.0.1:5000
   <summary> Change Password </summary>
 
   ```
-  POST /ChangePassword
+  POST http://127.0.0.1:5000/ChangePassword
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -147,7 +143,7 @@ Host: http://127.0.0.1:5000
   <summary> Search Series </summary>
 
   ```
-  POST /SearchSeries
+  POST http://127.0.0.1:5000/SearchSeries
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -166,7 +162,7 @@ Host: http://127.0.0.1:5000
   <summary> Get Series </summary>
 
   ```
-  POST /GetSeries
+  POST http://127.0.0.1:5000/GetSeries
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -185,7 +181,7 @@ Host: http://127.0.0.1:5000
   <summary> Add Series </summary>
 
   ```
-  POST /AddSeries
+  POST http://127.0.0.1:5000/AddSeries
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -204,7 +200,7 @@ Host: http://127.0.0.1:5000
   <summary> Remove Series </summary>
 
   ```
-  POST /Remove
+  POST http://127.0.0.1:5000/Remove
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -223,7 +219,7 @@ Host: http://127.0.0.1:5000
   <summary> Update Series Status </summary>
 
   ```
-  POST /UpdateSeriesStatus
+  POST http://127.0.0.1:5000/UpdateSeriesStatus
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -243,7 +239,7 @@ Host: http://127.0.0.1:5000
   <summary> Check Episode </summary>
 
   ```
-  POST /CheckEpisode
+  POST http://127.0.0.1:5000/CheckEpisode
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -262,7 +258,7 @@ Host: http://127.0.0.1:5000
   <summary> Update Episodes </summary>
 
   ```
-  POST /UpdateEpisodes
+  POST http://127.0.0.1:5000/UpdateEpisodes
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
@@ -283,7 +279,7 @@ Host: http://127.0.0.1:5000
   <summary> Rate Series </summary>
 
   ```
-  POST /RateSeries
+  POST http://127.0.0.1:5000/RateSeries
   Authorization: Bearer Token
   Content-Type: application/json
   Accept: text/html
