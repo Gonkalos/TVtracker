@@ -296,6 +296,7 @@ sh start.sh
 
 <details>
   <summary> Errors </summary>
+  <p>
 
   TVtracker uses conventional HTTP response codes to indicate the success or failure of an API request. 
   - Codes in the 2xx range indicate success;
@@ -309,6 +310,7 @@ sh start.sh
   | 400 - Bad Request | The request was unacceptable, often due to missing a required parameter. |
   | | The request from the server to the OMDb API was unacceptable. |
   
+  </p>
 </details>
 
 > Please note that all the body fields for all requests are required. 
