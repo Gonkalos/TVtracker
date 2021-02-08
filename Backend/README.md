@@ -302,6 +302,8 @@ sh start.sh
   | HTTP Status Code | Description |
   |------------------|-------------|
   | 200 - OK | Everything worked as expected. |
+  | 400 - Bad Request | The request was unacceptable, often due to missing a required parameter. |
+  
 </details>
 
 > Please note that all the body fields for all requests are required. 
