@@ -83,68 +83,68 @@ Host: http://127.0.0.1:5000
 <details>
   <summary> User </summary>
 
-<details>
-  <summary> Create an account </summary>
-  
-  ```
-  POST /CreateAccount
-  Authorization: None
-  Content-Type: application/json 
-  Accept: text/html
-  Accept-Charset: charset=utf-8
-  ```
+  <details>
+    <summary> Create an account </summary>
 
-  Body fields:
+    ```
+    POST /CreateAccount
+    Authorization: None
+    Content-Type: application/json 
+    Accept: text/html
+    Accept-Charset: charset=utf-8
+    ```
 
-  | Field | Type | Description |
-  |-------|------|-------------|
-  | username | string | Account username |
-  | email | string | Account email |
-  | password1 | string | Account password (first entry) |
-  | password2 | string | Account password (second entry) |
-  
-</details>
+    Body fields:
 
-<details>
-  <summary> Login </summary>
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | username | string | Account username |
+    | email | string | Account email |
+    | password1 | string | Account password (first entry) |
+    | password2 | string | Account password (second entry) |
 
-  ```
-  POST /Login
-  Authorization: None
-  Content-Type: application/json
-  Accept: text/html
-  Accept-Charset: charset=utf-8
-  ```
+  </details>
 
-  Body fields:
+  <details>
+    <summary> Login </summary>
 
-  | Field | Type | Description |
-  |-------|------|-------------|
-  | email | string | Account email |
-  | password | string | Account password |
+    ```
+    POST /Login
+    Authorization: None
+    Content-Type: application/json
+    Accept: text/html
+    Accept-Charset: charset=utf-8
+    ```
 
-</details>
+    Body fields:
 
-<details>
-  <summary> Change Password </summary>
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | email | string | Account email |
+    | password | string | Account password |
 
-  ```
-  POST /ChangePassword
-  Authorization: Bearer Token
-  Content-Type: application/json
-  Accept: text/html
-  Accept-Charset: charset=utf-8
-  ```
+  </details>
 
-  Body fields:
+  <details>
+    <summary> Change Password </summary>
 
-  | Field | Type | Description |
-  |-------|------|-------------|
-  | old_password | string | Account password |
-  | new_password1 | string | Account new password (first entry) |
-  | new_password2 | string | Account new password (second entry) |
+    ```
+    POST /ChangePassword
+    Authorization: Bearer Token
+    Content-Type: application/json
+    Accept: text/html
+    Accept-Charset: charset=utf-8
+    ```
 
-</details>
+    Body fields:
+
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | old_password | string | Account password |
+    | new_password1 | string | Account new password (first entry) |
+    | new_password2 | string | Account new password (second entry) |
+
+  </details>
 
 </details>
 
