@@ -105,43 +105,43 @@ Host: http://127.0.0.1:5000
 </details>
 
 <details>
-<summary> Login </summary>
+  <summary> Login </summary>
 
-```
-POST /Login
-Authorization: None
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /Login
+  Authorization: None
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| email | string | Account email |
-| password | string | Account password |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | email | string | Account email |
+  | password | string | Account password |
 
 </details>
 
 <details>
-<summary> Change Password </summary>
+  <summary> Change Password </summary>
 
-```
-POST /ChangePassword
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /ChangePassword
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| old_password | string | Account password |
-| new_password1 | string | Account new password (first entry) |
-| new_password2 | string | Account new password (second entry) |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | old_password | string | Account password |
+  | new_password1 | string | Account new password (first entry) |
+  | new_password2 | string | Account new password (second entry) |
 
 </details>
 
@@ -150,156 +150,156 @@ Body fields:
 <details>
 <summary> Search Series </summary>
 
-```
-POST /SearchSeries
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /SearchSeries
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| search | string | Series title |
-
-</details>
-
-<details>
-<summary> Get Series </summary>
-
-```
-POST /GetSeries
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
-
-Body fields:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| imdbID | string | Series IMDb id |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | search | string | Series title |
 
 </details>
 
 <details>
-<summary> Add Series </summary>
+  <summary> Get Series </summary>
 
-```
-POST /AddSeries
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /GetSeries
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| imdbID | string | Series IMDb id |
-
-</details>
-
-<details>
-<summary> Remove Series </summary>
-
-```
-POST /Remove
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
-
-Body fields:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| imdbID | string | Series IMDb id |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | imdbID | string | Series IMDb id |
 
 </details>
 
 <details>
-<summary> Update Series Status </summary>
+  <summary> Add Series </summary>
 
-```
-POST /UpdateSeriesStatus
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /AddSeries
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Valid Options | Description |
-|-------|------|---------------|-------------|
-| imdbID | string | | Series IMDb id |
-| status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
-
-</details>
-
-<details>
-<summary> Check Episode </summary>
-
-```
-POST /CheckEpisode
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
-
-Body fields:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| imdbID | string | Series IMDb id |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | imdbID | string | Series IMDb id |
 
 </details>
 
 <details>
-<summary> Update Episodes </summary>
+  <summary> Remove Series </summary>
 
-```
-POST /UpdateEpisodes
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /Remove
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| imdbID | string | Series IMDb id |
-| updated_episode | integer | Last episode seen |
-| updated_season | integer | Season of the last episode seen |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | imdbID | string | Series IMDb id |
 
 </details>
 
 <details>
-<summary> Rate Series </summary>
+  <summary> Update Series Status </summary>
 
-```
-POST /RateSeries
-Authorization: Bearer Token
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
+  ```
+  POST /UpdateSeriesStatus
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-Body fields:
+  Body fields:
 
-| Field | Type | Valid Options | Description |
-|-------|------|-------------|
-| imdbID | string | | Series IMDb id |
-| rating | integer | 1, 2, 3, 4, 5 | Series rating |
+  | Field | Type | Valid Options | Description |
+  |-------|------|---------------|-------------|
+  | imdbID | string | | Series IMDb id |
+  | status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
+
+</details>
+
+<details>
+  <summary> Check Episode </summary>
+
+  ```
+  POST /CheckEpisode
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
+
+  Body fields:
+
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | imdbID | string | Series IMDb id |
+
+</details>
+
+<details>
+  <summary> Update Episodes </summary>
+
+  ```
+  POST /UpdateEpisodes
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
+
+  Body fields:
+
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | imdbID | string | Series IMDb id |
+  | updated_episode | integer | Last episode seen |
+  | updated_season | integer | Season of the last episode seen |
+
+</details>
+
+<details>
+  <summary> Rate Series </summary>
+
+  ```
+  POST /RateSeries
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
+
+  Body fields:
+
+  | Field | Type | Valid Options | Description |
+  |-------|------|-------------|
+  | imdbID | string | | Series IMDb id |
+  | rating | integer | 1, 2, 3, 4, 5 | Series rating |
 
 </details>
 
