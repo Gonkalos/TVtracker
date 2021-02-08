@@ -63,7 +63,7 @@ def changePassword():
                 new_password1 = data['new_password1']
                 new_password2 = data['new_password2']
                 # Validate Data
-                if new_password1 == new_password2: return mydb.changePassword(data[1], old_password, new_password1)
+                if new_password1 == new_password2: return mydb.changePassword(decode, old_password, new_password1)
                 else: return 'Error: The new passwords don\'t match.'
             else: return 'Error: Missing data.'
         else: return decode
