@@ -72,6 +72,8 @@ To start the server simply run the following command:
 sh start.sh
 ```
 
+----
+
 ### TVtracker API
 
 ```
