@@ -324,13 +324,12 @@ sh start.sh
   - Codes in the 2xx range indicate success
   - Codes in the 4xx range indicate an error that failed given the information provided
   - Codes in the 5xx range indicate an error with the server
-  - Codes in the 6xx range indicate an error with external services (custom)
 
   | Status Code | Meaning | Description |
   |-------------|---------|-------------|
   | 200 | OK | Everything worked as expected. |
   | 400 | Bad Request | The request was unacceptable, often due to missing a required parameter. |
-  | 600 | OMDb Bad Request | The request from the server to the OMDb API was unacceptable. |
+  | ??? | OMDb Bad Request | The request from the server to the OMDb API was unacceptable. |
   
   </p>
 </details>
