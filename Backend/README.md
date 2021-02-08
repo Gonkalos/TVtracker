@@ -82,6 +82,28 @@ Host: http://127.0.0.1:5000
 
 #### User
 
+<details>
+<summary> Create an account </summary>
+  
+```
+POST /CreateAccount
+Authorization: None
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| username | string | Account username |
+| email | string | Account email |
+| password1 | string | Account password (first entry) |
+| password2 | string | Account password (second entry) |
+  
+</details>
+
 - Create an account
 
 ```
