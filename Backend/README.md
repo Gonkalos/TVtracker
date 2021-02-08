@@ -197,6 +197,57 @@ Body fields:
 | imdbID | string | | Series IMDb id |
 | status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
 
+- Check Episode
+
+```
+POST /CheckEpisode
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| imdbID | string | Series IMDb id |
+
+- Update Episodes
+
+```
+POST /UpdateEpisodes
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| imdbID | string | Series IMDb id |
+| updated_episode | integer | Last episode seen |
+| updated_season | integer | Season of the last episode seen |
+
+- Rate Series
+
+```
+POST /RateSeries
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Valid Options | Description |
+|-------|------|-------------|
+| imdbID | string | | Series IMDb id |
+| rating | integer | 1, 2, 3, 4, 5 | Series rating |
+
 #### Errors
 
 TVtracker uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, in the 4xx range indicate an error that failed given the information provided and in the 5xx range indicate an error with the server.
