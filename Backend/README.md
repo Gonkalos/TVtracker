@@ -80,6 +80,8 @@ Host: http://127.0.0.1:5000
 
 > Please note that all the body fields for all requests are required. 
 
+#### User
+
 - Create an account
 
 ```
@@ -115,6 +117,24 @@ Body fields:
 |-------|------|-------------|
 | email | string | Account email |
 | password | string | Account password |
+
+- Change Password
+
+```
+POST /ChangePassword
+Authorization: Bearer Token
+Content-Type: application/json
+Accept: text/html
+Accept-Charset: charset=utf-8
+```
+
+Body fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| old_password | string | Account password |
+| new_password1 | string | Account new password (first entry) |
+| new_password2 | string | Account new password (second entry) |
 
 - Search Series
 
