@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### Configuration
 
-The server is configured via the `configs.py` file in `/Backend/Utils`. Create this file with the following syntax:
+The server is configured via the `configs.py` file. Create this file in `/Backend/Utils` with the following syntax:
 
 ```
 # OMDb API
