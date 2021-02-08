@@ -316,7 +316,7 @@ sh start.sh
   </p>
 </details>
 
-> Please note that, for each requests, all fields are required.
+> Please note that for each request all fields are required.
 
 <details>
   <summary> Errors </summary>
