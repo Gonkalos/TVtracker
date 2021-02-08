@@ -299,8 +299,8 @@ sh start.sh
 
   TVtracker uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the 2xx range indicate success, in the 4xx range indicate an error that failed given the information provided and in the 5xx range indicate an error with the server.
 
-  | Error Code | Description |
-  |------------|-------------|
+  | HTTP Status Code | Description |
+  |------------------|-------------|
 
 </details>
 
