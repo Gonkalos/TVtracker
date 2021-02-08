@@ -316,6 +316,8 @@ sh start.sh
   </p>
 </details>
 
+> Please note that all the body fields for all requests are required. 
+
 <details>
   <summary> Errors </summary>
   <p>
@@ -336,5 +338,3 @@ sh start.sh
   
   </p>
 </details>
-
-> Please note that all the body fields for all requests are required. 
