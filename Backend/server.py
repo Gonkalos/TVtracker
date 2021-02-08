@@ -71,7 +71,7 @@ def changePassword():
                 else: return 'Unmatched passwords', 400
             else: return 'Missing data', 400
         else: return decode, 400
-    else: return token, 400
+    else: return token, 401
 
 
 # Get series by title
@@ -105,7 +105,7 @@ def getSeries():
                 else: return 'OMDb response status code ' + str(status), 502
             else: return 'Missing data', 400
         else: return decode, 400
-    else: return token, 400
+    else: return token, 401
 
 
 # Search for a series by matching titles
@@ -136,7 +136,7 @@ def searchSeries():
                 else: return 'OMDb response status code ' + str(status), 502
             else: return 'Missing data', 400
         else: return decode, 400
-    else: return token, 400
+    else: return token, 401
 
 
 # Add Series
@@ -155,7 +155,7 @@ def addSeries():
                 return mydb.addSeries(decode, imdbID)
             else: return 'Missing data', 400
         else: return decode, 400
-    else: return token, 400
+    else: return token, 401
 
 
 # Remove Series
@@ -172,9 +172,9 @@ def removeSeries():
             if all(elem in list(data) for elem in parameters) and len(data) >= 1:
                 imdbID = data['imdbID']
                 return mydb.removeSeries(decode, imdbID)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 401
 
 
 # Update series status
@@ -202,10 +202,10 @@ def updateSeriesStatus():
                     episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
                     if episodes_check: return mydb.updateSeriesStatus(decode, imdbID, seriesStatus, episodes)
                     else: return episodes
-                else: return 'Error: OMDb response status ' + str(status)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+                else: return 'OMDb response status code ' + str(status), 502
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 401
 
 
 # Rate Series
@@ -223,9 +223,9 @@ def rankSeries():
                 imdbID = data['imdbID']
                 rating = data['rating']
                 return mydb.rateSeries(decode, imdbID, rating)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 401
 
 
 # Check one episode as seen 
@@ -252,10 +252,10 @@ def checkEpisode():
                     episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
                     if episodes_check: return mydb.checkEpisode(decode, imdbID, episodes)
                     else: return episodes
-                else: return 'Error: OMDb response status ' + str(status)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+                else: return 'OMDb response status code ' + str(status), 502
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 401
 
 
 # Update number of episodes seen
@@ -286,13 +286,13 @@ def updateEpisodes():
                         if updated_season in episodes.keys():
                             if updated_episode <= episodes[updated_season]:
                                 return mydb.updateEpisodes(decode, imdbID, episodes, updated_episode, updated_season)
-                            else: return 'Error: Invalid episode.'
-                        else: return 'Error: Invalid season.'
+                            else: return 'Invalid episode', 400
+                        else: return 'Invalid season', 400
                     else: return episodes
-                else: return 'Error: OMDb response status ' + str(status)
-            else: return 'Error: Missing data.'
-        else: return decode
-    else: return token
+                else: return 'OMDb response status code ' + str(status), 502
+            else: return 'Missing data', 400
+        else: return decode, 400
+    else: return token, 401
 
 
 if __name__ == '__main__':
