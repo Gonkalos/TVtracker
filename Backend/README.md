@@ -301,7 +301,7 @@ sh start.sh
 
   | HTTP Status Code | Description |
   |------------------|-------------|
-
+  | 200 | OK |
 </details>
 
 > Please note that all the body fields for all requests are required. 
