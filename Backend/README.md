@@ -309,7 +309,7 @@ sh start.sh
   Body fields:
 
   | Field | Type | Valid Options | Description |
-  |-------|------|-------------|
+  |-------|------|---------------|-------------|
   | imdbID | string | | Series IMDb id |
   | rating | integer | 1, 2, 3, 4, 5 | Series rating |
 
