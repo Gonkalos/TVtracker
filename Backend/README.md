@@ -7,8 +7,9 @@ A Flask-driven RESTful API.
 ## Table Of Contents
 
 - [Tecnologies Used](#Technologies-Used)
-- [Instalation](#Installation)
 - [Getting Started](#Getting-Started)
+  - [Instalation](#Installation)
+  - [Configuration](#Configuration)
 - [How To Use](#How-To-Use)
   - [Compile And Run](#Compile-And-Run)
   - [API Documentation](#API-Documentation)
@@ -26,7 +27,9 @@ A Flask-driven RESTful API.
 
 ---
 
-## Installation
+## Getting Started
+
+### Installation
 
 - Ensure that you have the latest versions of Python3 and MySQL globally installed in your computer.
 
@@ -39,7 +42,7 @@ pip install -r requirements.txt
 
 ---
 
-## Getting Started
+### Configuration
 
 The server is configured via the `configs.py` file in `/Backend/Utils`. Create this file with the following syntax:
 
