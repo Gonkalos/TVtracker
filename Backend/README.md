@@ -11,7 +11,7 @@ A Flask-driven RESTful API.
 - [Getting Started](#Getting-Started)
 - [How To Use](#How-To-Use)
   - [Compile And Run](#Compile-And-Run)
-  - [TVtracker API](#TVtracker-API)
+  - [TVtracker API](#API-Documentation)
 
 
 ---
@@ -72,7 +72,7 @@ To start the server simply run the following command:
 sh start.sh
 ```
 
-### TVtracker API
+### API Documentation
 
 > Please note that all the body fields for all requests are required. 
 
