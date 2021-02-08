@@ -75,8 +75,6 @@ sh start.sh
 
 ### API Documentation
 
-> Please note that all the body fields for all requests are required. 
-
 <details>
   <summary> Create an account </summary>
 
@@ -306,3 +304,5 @@ sh start.sh
   |------------|-------------|
 
 </details>
+
+> Please note that all the body fields for all requests are required. 
