@@ -308,7 +308,7 @@ sh start.sh
   |------------------|-------------|
   | 200 - OK | Everything worked as expected. |
   | 400 - Bad Request | The request was unacceptable, often due to missing a required parameter. |
-  | | The request from the server to the OMDb API was unacceptable. |
+  | 600 - OMDb Bad Request | The request from the server to the OMDb API was unacceptable. |
   
   </p>
 </details>
