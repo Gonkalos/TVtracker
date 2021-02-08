@@ -104,26 +104,8 @@ Body fields:
   
 </details>
 
-- Create an account
-
-```
-POST /CreateAccount
-Authorization: None
-Content-Type: application/json
-Accept: text/html
-Accept-Charset: charset=utf-8
-```
-
-Body fields:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| username | string | Account username |
-| email | string | Account email |
-| password1 | string | Account password (first entry) |
-| password2 | string | Account password (second entry) |
-
-- Login
+<details>
+<summary> Login </summary>
 
 ```
 POST /Login
@@ -140,7 +122,10 @@ Body fields:
 | email | string | Account email |
 | password | string | Account password |
 
-- Change Password
+</details>
+
+<details>
+<summary> Change Password </summary>
 
 ```
 POST /ChangePassword
@@ -158,9 +143,12 @@ Body fields:
 | new_password1 | string | Account new password (first entry) |
 | new_password2 | string | Account new password (second entry) |
 
+</details>
+
 #### Series
 
-- Search Series
+<details>
+<summary> Search Series </summary>
 
 ```
 POST /SearchSeries
@@ -176,7 +164,10 @@ Body fields:
 |-------|------|-------------|
 | search | string | Series title |
 
-- Get Series
+</details>
+
+<details>
+<summary> Get Series </summary>
 
 ```
 POST /GetSeries
@@ -192,7 +183,10 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-- Add Series
+</details>
+
+<details>
+<summary> Add Series </summary>
 
 ```
 POST /AddSeries
@@ -208,7 +202,10 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-- Remove Series
+</details>
+
+<details>
+<summary> Remove Series </summary>
 
 ```
 POST /Remove
@@ -224,7 +221,10 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-- Update Series Status
+</details>
+
+<details>
+<summary> Update Series Status </summary>
 
 ```
 POST /UpdateSeriesStatus
@@ -241,7 +241,10 @@ Body fields:
 | imdbID | string | | Series IMDb id |
 | status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
 
-- Check Episode
+</details>
+
+<details>
+<summary> Check Episode </summary>
 
 ```
 POST /CheckEpisode
@@ -257,7 +260,10 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-- Update Episodes
+</details>
+
+<details>
+<summary> Update Episodes </summary>
 
 ```
 POST /UpdateEpisodes
@@ -275,7 +281,10 @@ Body fields:
 | updated_episode | integer | Last episode seen |
 | updated_season | integer | Season of the last episode seen |
 
-- Rate Series
+</details>
+
+<details>
+<summary> Rate Series </summary>
 
 ```
 POST /RateSeries
@@ -291,6 +300,8 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | | Series IMDb id |
 | rating | integer | 1, 2, 3, 4, 5 | Series rating |
+
+</details>
 
 #### Errors
 
