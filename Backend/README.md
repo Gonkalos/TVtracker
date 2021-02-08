@@ -80,7 +80,8 @@ Host: http://127.0.0.1:5000
 
 > Please note that all the body fields for all requests are required. 
 
-#### User
+<details>
+  <summary> User </summary>
 
 <details>
   <summary> Create an account </summary>
@@ -142,6 +143,8 @@ Host: http://127.0.0.1:5000
   | old_password | string | Account password |
   | new_password1 | string | Account new password (first entry) |
   | new_password2 | string | Account new password (second entry) |
+
+</details>
 
 </details>
 
