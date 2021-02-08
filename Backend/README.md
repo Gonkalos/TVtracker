@@ -84,65 +84,65 @@ Host: http://127.0.0.1:5000
   <summary> User </summary>
 
   <details>
-    <summary> Create an account </summary>
+  <summary> Create an account </summary>
 
-    ```
-    POST /CreateAccount
-    Authorization: None
-    Content-Type: application/json 
-    Accept: text/html
-    Accept-Charset: charset=utf-8
-    ```
+   ```
+   POST /CreateAccount
+   Authorization: None
+   Content-Type: application/json 
+   Accept: text/html
+   Accept-Charset: charset=utf-8
+   ```
 
-    Body fields:
+   Body fields:
 
-    | Field | Type | Description |
-    |-------|------|-------------|
-    | username | string | Account username |
-    | email | string | Account email |
-    | password1 | string | Account password (first entry) |
-    | password2 | string | Account password (second entry) |
-
-  </details>
-
-  <details>
-    <summary> Login </summary>
-
-    ```
-    POST /Login
-    Authorization: None
-    Content-Type: application/json
-    Accept: text/html
-    Accept-Charset: charset=utf-8
-    ```
-
-    Body fields:
-
-    | Field | Type | Description |
-    |-------|------|-------------|
-    | email | string | Account email |
-    | password | string | Account password |
+   | Field | Type | Description |
+   |-------|------|-------------|
+   | username | string | Account username |
+   | email | string | Account email |
+   | password1 | string | Account password (first entry) |
+   | password2 | string | Account password (second entry) |
 
   </details>
 
   <details>
-    <summary> Change Password </summary>
+  <summary> Login </summary>
 
-    ```
-    POST /ChangePassword
-    Authorization: Bearer Token
-    Content-Type: application/json
-    Accept: text/html
-    Accept-Charset: charset=utf-8
-    ```
+  ```
+  POST /Login
+  Authorization: None
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
 
-    Body fields:
+  Body fields:
 
-    | Field | Type | Description |
-    |-------|------|-------------|
-    | old_password | string | Account password |
-    | new_password1 | string | Account new password (first entry) |
-    | new_password2 | string | Account new password (second entry) |
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | email | string | Account email |
+  | password | string | Account password |
+
+  </details>
+
+  <details>
+  <summary> Change Password </summary>
+
+  ```
+  POST /ChangePassword
+  Authorization: Bearer Token
+  Content-Type: application/json
+  Accept: text/html
+  Accept-Charset: charset=utf-8
+  ```
+
+  Body fields:
+
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | old_password | string | Account password |
+  | new_password1 | string | Account new password (first entry) |
+  | new_password2 | string | Account new password (second entry) |
 
   </details>
 
