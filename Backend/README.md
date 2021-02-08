@@ -329,6 +329,7 @@ sh start.sh
   |-------------|---------|-------------|
   | 200 | OK | Everything worked as expected. |
   | 400 | Bad Request | The request was unacceptable, often due to missing a required parameter. |
+  | 401 | Unauthorized | The request requires user authentication. |
   | 404 | Not Found | The requested resource doesn't exist. |
   | 500 | Internal Server Error | The server encountered an unexpected condition which prevented it from fulfilling the request. |
   | 502 | Bad Gateway | The server received an invalid response from the OMDb API. |
