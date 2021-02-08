@@ -35,14 +35,14 @@ A Flask-driven RESTful API.
 
 > If you are running macOS, make sure to set Python3 and pip3 as default.
 
-- To install all dependencies go to `/Backend/Utils` and run the following command:
+- To install all dependencies go to `/Utils` and run the following command:
 ```
 pip install -r requirements.txt
 ```
 
 ### Configuration
 
-The server is configured via the `configs.py` file. Create this file in `/Backend/Utils` with the following syntax:
+The server is configured via the `configs.py` file. Create this file in `/Utils` with the following syntax:
 
 ```
 # OMDb API
@@ -58,7 +58,7 @@ DB_NAME = 'your-MySQL-database-name'
 JWT_SECRET_KEY = 'your-JWT-secret-key'
 JWT_ALGORITHM = 'your-preferred-JWT-algorithm'
 ```
-> To generate a JWT secret key go to `/Backend/Utils` and run the following command:
+> To generate a JWT secret key go to `/Utils` and run the following command:
 ```
 python secretKey.py
 ```
