@@ -80,7 +80,7 @@ Host: http://127.0.0.1:5000
 
 > Please note that all the body fields for all requests are required. 
 
-#### Create an account
+- Create an account
 
 ```
 POST /CreateAccount
@@ -99,7 +99,7 @@ Body fields:
 | password1 | string | Account password (first entry) |
 | password2 | string | Account password (second entry) |
 
-#### Login
+- Login
 
 ```
 POST /Login
@@ -116,7 +116,7 @@ Body fields:
 | email | string | Account email |
 | password | string | Account password |
 
-#### Search Series
+- Search Series
 
 ```
 POST /SearchSeries
@@ -132,7 +132,7 @@ Body fields:
 |-------|------|-------------|
 | search | string | Series title |
 
-#### Get Series
+- Get Series
 
 ```
 POST /GetSeries
@@ -148,7 +148,7 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-#### Add Series
+- Add Series
 
 ```
 POST /AddSeries
@@ -164,7 +164,7 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-#### Remove Series
+- Remove Series
 
 ```
 POST /Remove
@@ -180,7 +180,7 @@ Body fields:
 |-------|------|-------------|
 | imdbID | string | Series IMDb id |
 
-#### Update Series Status
+- Update Series Status
 
 ```
 POST /UpdateSeriesStatus
@@ -194,7 +194,7 @@ Body fields:
 
 | Field | Type | Valid Options | Description |
 |-------|------|---------------|-------------|
-| imdbID | string | Series IMDb id |
+| imdbID | string | | Series IMDb id |
 | status | string | Watching, Rewatching, Completed, Plan To Watch | Series updated status |
 
 #### Errors
