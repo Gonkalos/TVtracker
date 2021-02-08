@@ -152,7 +152,7 @@ sh start.sh
   POST http://127.0.0.1:5000/SearchSeries
   Authorization: Bearer Token
   Content-Type: application/json
-  Accept: text/html
+  Accept: application/json
   Accept-Charset: charset=utf-8
   ```
 
