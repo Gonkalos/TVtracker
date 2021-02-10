@@ -19,15 +19,15 @@ def addSeries(email, imdbID):
             mydb.commit()
             mycursor.close()
             mydb.close()
-            return 'Success'
+            return 'Success', 200
         else:
             mycursor.close()
             mydb.close()
-            return 'Series already added'
+            return 'Series already added', 400
     else: 
         mycursor.close()
         mydb.close()
-        return 'User not found'
+        return 'User not found', 500
 
 # Remove series from user's list
 def removeSeries(email, imdbID):
@@ -40,21 +40,21 @@ def removeSeries(email, imdbID):
         mycursor.execute(f'SELECT * FROM Series WHERE IMDbID = \'{imdbID}\' AND UserID = \'{userID}\' LIMIT 1')
         result = str(mycursor.fetchone())
         if result != 'None':
-            mycursor.execute(f'DELETE FROM Series WHERE IMDbID = \'{imdbID}\' AND UserID = {userID};')
-            mydb.commit()
             mycursor.execute(f'DELETE FROM Episodes WHERE IMDbID = \'{imdbID}\' AND UserID = {userID};')
+            mydb.commit()
+            mycursor.execute(f'DELETE FROM Series WHERE IMDbID = \'{imdbID}\' AND UserID = {userID};')
             mydb.commit()
             mycursor.close()
             mydb.close()
-            return 'Success'
+            return 'Success', 200
         else:
             mycursor.close()
             mydb.close()
-            return 'Error: Series not in list.'
+            return 'Series not in list', 400
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: User not found.'
+        return 'User not found', 500
 
 # Update series status
 def updateSeriesStatus(email, imdbID, status, episodes):
@@ -84,24 +84,24 @@ def updateSeriesStatus(email, imdbID, status, episodes):
                 else:
                     mycursor.close()
                     mydb.close()
-                    return 'Error: Series status is invalid.'
+                    return 'Series status is invalid'
                 mycursor.execute(f'UPDATE Series SET Status = \'{status}\' WHERE IMDbID = \'{imdbID}\' AND UserID = {userID};')
                 mydb.commit()
                 mycursor.close()
                 mydb.close()
-                return 'Success'
+                return 'Success', 200
             else: 
                 mycursor.close()
                 mydb.close()
-                return 'Error: Series status is the same.'
+                return 'Series status is the same', 400
         else:
             mycursor.close()
             mydb.close()
-            return 'Error: Series not in list.'
+            return 'Series not in list', 400
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: User not found.'
+        return 'User not found', 500
 
 # Update series rating
 def rateSeries(email, imdbID, rating):
@@ -118,15 +118,15 @@ def rateSeries(email, imdbID, rating):
             mydb.commit()
             mycursor.close()
             mydb.close()
-            return 'Success'
+            return 'Success', 200
         else:
             mycursor.close()
             mydb.close()
-            return 'Error: Series not in list or not completed.'
+            return 'Series not in list or not completed', 400
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: User not found.'
+        return 'User not found', 500
 
 # Check one episode as seen
 def checkEpisode(email, imdbID, episodes):
@@ -156,19 +156,19 @@ def checkEpisode(email, imdbID, episodes):
                         break
                 mycursor.close()
                 mydb.close()
-                return 'Success'
+                return 'Success', 200
             else: 
                 mycursor.close()
                 mydb.close()
-                return 'Error: Series status invalid.'
+                return 'Series status invalid', 400
         else:
             mycursor.close()
             mydb.close()
-            return 'Error: Series not in list.'
+            return 'Series not in list', 400
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: User not found.'
+        return 'User not found', 500
 
 # Update number of episodes seen
 def updateEpisodes(email, imdbID, episodes, updated_episode, updated_season):
@@ -204,16 +204,16 @@ def updateEpisodes(email, imdbID, episodes, updated_episode, updated_season):
                         mydb.commit()
                 mycursor.close()
                 mydb.close()
-                return 'Success'
+                return 'Success', 200
             else: 
                 mycursor.close()
                 mydb.close()
-                return 'Error: Series status invalid.'
+                return 'Series status invalid', 400
         else:
             mycursor.close()
             mydb.close()
-            return 'Error: Series not in list.'
+            return 'Series not in list', 400
     else: 
         mycursor.close()
         mydb.close()
-        return 'Error: User not found.'
+        return 'User not found', 500

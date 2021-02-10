@@ -2,7 +2,7 @@ from flask import Flask, request
 import requests
 import Utils.configs as configs
 
-# Check for Bearer Token Authentication
+# Check Bearer Token Authentication existence
 def checkAuth(headers):
     if 'Authorization' in headers:
         auth = str(headers['Authorization']).split()
@@ -13,22 +13,15 @@ def checkAuth(headers):
 # Get the number of episodes of a season from a series
 def getSeasonEpisodes(title, season):
     # Send request
+    # If imdbID doesn't exist, returns status code 500
     response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 't': title, 'Season': season})
-    # Get response status code
-    status = response.status_code
-    # Check response status 
-    if status == 200:
-        jsonResponse = response.json()
-        totalEpisodes = len(jsonResponse['Episodes'])
-        return True, totalEpisodes
-    else: return False, 'OMDb response status code ' + str(status)
+    jsonResponse = response.json()
+    totalEpisodes = len(jsonResponse['Episodes'])
+    return totalEpisodes
 
-# Get the number of episodes of all seasons from a series
+# Get the number of episodes for all seasons of a series
 def getTotalEpisodes(title, totalSeasons):
     episodes = {}
     for season in range(1, totalSeasons + 1):
-        check, response = getSeasonEpisodes(title, season)
-        if check:
-            episodes[season] = response
-        else: return False, response
-    return True, episodes
+        episodes[season] = getSeasonEpisodes(title, season)
+    return episodes

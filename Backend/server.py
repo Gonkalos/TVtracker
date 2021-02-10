@@ -16,10 +16,11 @@ app = Flask(__name__)
 # Create Account
 @app.route('/CreateAccount', methods=['POST'])
 def createAccount():
-    # Get body parameters
+    # Get request data
     data = request.get_json()
-    parameters = ['username', 'email', 'password1', 'password2']
-    if all(elem in list(data) for elem in parameters) and len(data) >= 4:
+    # Validate all body fields existence
+    fields = ['username', 'email', 'password1', 'password2']
+    if all(elem in list(data) for elem in fields) and len(data) >= 4:
         username = data['username']
         email = data['email']
         password1 = data['password1']
@@ -35,16 +36,18 @@ def createAccount():
 # Login
 @app.route('/Login', methods=['POST'])
 def login():
-    # Get body parameters
+    # Get request data
     data = request.get_json()
-    parameters = ['email', 'password']
-    if all(elem in list(data) for elem in parameters) and len(data) >= 2:
+    # Validate all body fields existence
+    fields = ['email', 'password']
+    if all(elem in list(data) for elem in fields) and len(data) >= 2:
+        # Get body fields
         email = data['email']
         password = data['password']
         # Validate data
         if mydb.validateUser(email, password): 
-            generated_check, token = tokens.encode_auth_token(email)
-            if generated_check: return token, 200
+            token_generated, token = tokens.encode_auth_token(email)
+            if token_generated: return token, 200
             else: return token, 500 
         else: return 'Invalid email or password', 400
     else: return 'Missing data', 400
@@ -53,206 +56,215 @@ def login():
 # Change Password
 @app.route('/ChangePassword', methods=['POST'])
 def changePassword():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['old_password', 'new_password1', 'new_password2']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 3:
+            # Validate all body fields existence
+            fields = ['old_password', 'new_password1', 'new_password2']
+            if all(elem in list(data) for elem in fields) and len(data) >= 3:
+                # Get body fields
                 old_password = data['old_password']
                 new_password1 = data['new_password1']
                 new_password2 = data['new_password2']
-                # Validate Data
+                # Validate data
                 if new_password1 == new_password2: 
                     if mydb.changePassword(decode, old_password, new_password1): return 'Success', 200
                     else: return 'Incorrect password', 400
                 else: return 'Unmatched passwords', 400
             else: return 'Missing data', 400
-        else: return decode, 400
-    else: return token, 401
-
-
-# Get series by title
-@app.route('/GetSeries', methods=['POST'])
-def getSeries():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
-            data = request.get_json()
-            parameters = ['imdbID']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
-                imdbID = data['imdbID']
-                # Send request
-                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series', 'plot': 'full'})
-                # Get response status code
-                status = response.status_code
-                # Check response status 
-                if status == 200:
-                    jsonResponse = response.json()
-                    # Get number of episodes for each season
-                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
-                    if episodes_check:
-                        # Create series
-                        return jsonify(imdbID=jsonResponse['imdbID'], title=jsonResponse['Title'], year=jsonResponse['Year'], genre=jsonResponse['Genre'], 
-                                       director=jsonResponse['Director'], writer=jsonResponse['Writer'], plot=jsonResponse['Plot'], poster=jsonResponse['Poster'], 
-                                       imdbRating=jsonResponse['imdbRating'], episodes=episodes), 200
-                    else: return episodes, 502
-                else: return 'OMDb response status code ' + str(status), 502
-            else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
     else: return token, 401
 
 
 # Search for a series by matching titles
 @app.route('/SearchSeries', methods=['POST'])
 def searchSeries():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['search']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+            # Validate all body fields existence
+            fields = ['search']
+            if all(elem in list(data) for elem in fields) and len(data) >= 1:
+                # Get body fields
                 search = data['search']
-                # Send request
+                # Send request to OMDb API
+                # If search is invalid, returns status code 500
                 response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 's': search, 'type': 'series'})
-                # Get response status code
-                status = response.status_code
-                # Check response status 
-                if status == 200:
-                    jsonResponse = response.json()
-                    results = []
-                    for result in jsonResponse['Search']:
-                        series = {'imdbID': result['imdbID'], 'title': result['Title'], 'poster': result['Poster']}
-                        results.append(series)
-                    return jsonify(results = results), 200
-                else: return 'OMDb response status code ' + str(status), 502
+                jsonResponse = response.json()
+                results = []
+                for result in jsonResponse['Search']:
+                    series = {'imdbID': result['imdbID'], 'title': result['Title'], 'poster': result['Poster']}
+                    results.append(series)
+                return jsonify(results = results), 200
             else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
+    else: return token, 401
+
+
+# Get series by title
+@app.route('/GetSeries', methods=['POST'])
+def getSeries():
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
+            data = request.get_json()
+            # Validate all body fields existence
+            fields = ['imdbID']
+            if all(elem in list(data) for elem in fields) and len(data) >= 1:
+                # Get body fields
+                imdbID = data['imdbID']
+                # Send request to OMDb API
+                # If imdbID doesn't exist, returns status code 500
+                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series', 'plot': 'full'})
+                jsonResponse = response.json()
+                # Get number of episodes for each season
+                episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                return jsonify(imdbID=jsonResponse['imdbID'], title=jsonResponse['Title'], year=jsonResponse['Year'], genre=jsonResponse['Genre'], 
+                               director=jsonResponse['Director'], writer=jsonResponse['Writer'], plot=jsonResponse['Plot'], poster=jsonResponse['Poster'], 
+                               imdbRating=jsonResponse['imdbRating'], episodes=episodes), 200
+            else: return 'Missing data', 400
+        else: return decoding, 400
     else: return token, 401
 
 
 # Add Series
 @app.route('/AddSeries', methods=['POST'])
 def addSeries():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['imdbID']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+            # Validate all body fields existence
+            fields = ['imdbID']
+            if all(elem in list(data) for elem in fields) and len(data) >= 1:
+                # Get body fields
                 imdbID = data['imdbID']
-                return mydb.addSeries(decode, imdbID)
+                # Send to database
+                return mydb.addSeries(decoding, imdbID)
             else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
     else: return token, 401
 
 
 # Remove Series
 @app.route('/RemoveSeries', methods=['POST'])
 def removeSeries():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['imdbID']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+            # Validate all body fields existence
+            fields = ['imdbID']
+            if all(elem in list(data) for elem in fields) and len(data) >= 1:
+                # Get body fields
                 imdbID = data['imdbID']
-                return mydb.removeSeries(decode, imdbID)
+                # Send to database
+                return mydb.removeSeries(decoding, imdbID)
             else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
     else: return token, 401
 
 
 # Update series status
 @app.route('/UpdateSeriesStatus', methods=['POST'])
 def updateSeriesStatus():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['imdbID', 'status']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 2:
+            # Validate all body fields existence
+            fields = ['imdbID', 'status']
+            if all(elem in list(data) for elem in fields) and len(data) >= 2:
+                # Get body fields
                 imdbID = data['imdbID']
-                seriesStatus = data['status']
-                # Send request
+                status = data['status']
+                # Send request to OMDb API
+                # If imdbID is invalid, returns status code 500
                 response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
-                # Get response status code
-                status = response.status_code
-                # Check response status 
-                if status == 200:
-                    jsonResponse = response.json()
-                    # Get number of episodes for each season
-                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
-                    if episodes_check: return mydb.updateSeriesStatus(decode, imdbID, seriesStatus, episodes)
-                    else: return episodes
-                else: return 'OMDb response status code ' + str(status), 502
+                jsonResponse = response.json()
+                # Get number of episodes for each season
+                episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                # Send to database
+                return mydb.updateSeriesStatus(decoding, imdbID, status, episodes)
             else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
     else: return token, 401
 
 
 # Rate Series
 @app.route('/RateSeries', methods=['POST'])
 def rankSeries():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['imdbID', 'rating']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 2:
+            # Validate all body fields existence
+            fields = ['imdbID', 'rating']
+            if all(elem in list(data) for elem in fields) and len(data) >= 2:
+                # Get body fields
                 imdbID = data['imdbID']
                 rating = data['rating']
-                return mydb.rateSeries(decode, imdbID, rating)
+                # Send to database
+                return mydb.rateSeries(decoding, imdbID, rating)
             else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
     else: return token, 401
 
 
 # Check one episode as seen 
 @app.route('/CheckEpisode', methods=['POST'])
 def checkEpisode():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['imdbID']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 1:
+            # Validate all body fields existence
+            fields = ['imdbID']
+            if all(elem in list(data) for elem in fields) and len(data) >= 1:
+                # Get body fields
                 imdbID = data['imdbID']
-                # Send request
+                # Send request to OMDb API
+                # If imdbID is invalid, returns status code 500
                 response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
-                # Get response status code
-                status = response.status_code
-                # Check response status 
-                if status == 200:
-                    jsonResponse = response.json()
-                    # Get number of episodes for each season
-                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
-                    if episodes_check: return mydb.checkEpisode(decode, imdbID, episodes)
-                    else: return episodes
-                else: return 'OMDb response status code ' + str(status), 502
+                jsonResponse = response.json()
+                # Get number of episodes for each season
+                episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                # Send to database
+                return mydb.checkEpisode(decoding, imdbID, episodes)
             else: return 'Missing data', 400
         else: return decode, 400
     else: return token, 401
@@ -261,38 +273,41 @@ def checkEpisode():
 # Update number of episodes seen
 @app.route('/UpdateEpisodes', methods=['POST'])
 def updateEpisodes():
-    # Validate Authorization Token
-    bearer_check, token = aux.checkAuth(request.headers)
-    if bearer_check:
-        valid_check, decode = tokens.decode_auth_token(token)
-        if valid_check:
-            # Get body parameters
+    # Validate Bearer Token existence / Get Bearer Token
+    token_exists, token = aux.checkAuth(request.headers)
+    if token_exists:
+        # Validate Bearer Token authenticity / Get Beared Token decoding
+        token_authentic, decoding = tokens.decode_auth_token(token)
+        if token_authentic:
+            # Get request data
             data = request.get_json()
-            parameters = ['imdbID', 'updated_episode', 'updated_season']
-            if all(elem in list(data) for elem in parameters) and len(data) >= 3:
+            # Validate all body fields existence
+            fields = ['imdbID', 'updated_episode', 'updated_season']
+            if all(elem in list(data) for elem in fields) and len(data) >= 3:
+                # Get body fields
                 imdbID = data['imdbID']
                 updated_episode = data['updated_episode']
                 updated_season = data['updated_season']
-                # Send request
+                # Send request to OMDb API
+                # If imdbID is invalid, returns status code 500
                 response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
-                # Get response status code
-                status = response.status_code
-                # Check response status 
-                if status == 200:
-                    jsonResponse = response.json()
-                    # Get number of episodes for each season
-                    episodes_check, episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
-                    if episodes_check: 
-                        if updated_season in episodes.keys():
-                            if updated_episode <= episodes[updated_season]:
-                                return mydb.updateEpisodes(decode, imdbID, episodes, updated_episode, updated_season)
-                            else: return 'Invalid episode', 400
-                        else: return 'Invalid season', 400
-                    else: return episodes
-                else: return 'OMDb response status code ' + str(status), 502
+                jsonResponse = response.json()
+                # Get number of episodes for each season
+                episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                if updated_season in episodes.keys():
+                    if updated_episode <= episodes[updated_season]:
+                        # Send to database
+                        return mydb.updateEpisodes(decoding, imdbID, episodes, updated_episode, updated_season)
+                    else: return 'Invalid episode', 400
+                else: return 'Invalid season', 400
             else: return 'Missing data', 400
-        else: return decode, 400
+        else: return decoding, 400
     else: return token, 401
+
+
+@app.errorhandler(500)
+def pageNotFound(error):
+    return "Internal Server Error", 500
 
 
 if __name__ == '__main__':
