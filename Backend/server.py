@@ -12,6 +12,7 @@ mydb.createDatabase()
 # Initialize a Flask server
 app = Flask(__name__)
 
+# Routes
 
 # Create Account
 @app.route('/CreateAccount', methods=['POST'])
@@ -98,9 +99,7 @@ def searchSeries():
                 # Get body fields
                 search = data['search']
                 # Send request to OMDb API
-                # If search is invalid, returns status code 500
-                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 's': search, 'type': 'series'})
-                jsonResponse = response.json()
+                jsonResponse = aux.searchSeries(search)
                 results = []
                 for result in jsonResponse['Search']:
                     series = {'imdbID': result['imdbID'], 'title': result['Title'], 'poster': result['Poster']}
@@ -111,7 +110,7 @@ def searchSeries():
     else: return token, 401
 
 
-# Get series by title
+# Get series by IMDb id
 @app.route('/GetSeries', methods=['POST'])
 def getSeries():
     # Validate Bearer Token existence / Get Bearer Token
@@ -128,9 +127,7 @@ def getSeries():
                 # Get body fields
                 imdbID = data['imdbID']
                 # Send request to OMDb API
-                # If imdbID doesn't exist, returns status code 500
-                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series', 'plot': 'full'})
-                jsonResponse = response.json()
+                jsonResponse = aux.getSeries(imdbID)
                 # Get number of episodes for each season
                 episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
                 return jsonify(imdbID=jsonResponse['imdbID'], title=jsonResponse['Title'], year=jsonResponse['Year'], genre=jsonResponse['Genre'], 
@@ -157,6 +154,8 @@ def addSeries():
             if all(elem in list(data) for elem in fields) and len(data) >= 1:
                 # Get body fields
                 imdbID = data['imdbID']
+                # Check if series exists
+                aux.checkSeries(imdbID)
                 # Send to database
                 return mydb.addSeries(decoding, imdbID)
             else: return 'Missing data', 400
@@ -204,12 +203,8 @@ def updateSeriesStatus():
                 # Get body fields
                 imdbID = data['imdbID']
                 status = data['status']
-                # Send request to OMDb API
-                # If imdbID is invalid, returns status code 500
-                response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
-                jsonResponse = response.json()
                 # Get number of episodes for each season
-                episodes = aux.getTotalEpisodes(jsonResponse['Title'], int(jsonResponse['totalSeasons']))
+                episodes = aux.getTotalEpisodes(imdbID)
                 # Send to database
                 return mydb.updateSeriesStatus(decoding, imdbID, status, episodes)
             else: return 'Missing data', 400
@@ -258,7 +253,6 @@ def checkEpisode():
                 # Get body fields
                 imdbID = data['imdbID']
                 # Send request to OMDb API
-                # If imdbID is invalid, returns status code 500
                 response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
                 jsonResponse = response.json()
                 # Get number of episodes for each season
@@ -289,7 +283,6 @@ def updateEpisodes():
                 updated_episode = data['updated_episode']
                 updated_season = data['updated_season']
                 # Send request to OMDb API
-                # If imdbID is invalid, returns status code 500
                 response = requests.get(configs.OMDB_API_URL, params={'apikey': configs.OMDB_API_KEY, 'i': imdbID, 'type': 'series'})
                 jsonResponse = response.json()
                 # Get number of episodes for each season
@@ -304,9 +297,15 @@ def updateEpisodes():
         else: return decoding, 400
     else: return token, 401
 
+# Error Handlers
+
+@app.errorhandler(aux.OMDbException)
+def badGateway(error):
+    return str(error), 502
+
 
 @app.errorhandler(500)
-def pageNotFound(error):
+def internalServerError(error):
     return "Internal Server Error", 500
 
 
