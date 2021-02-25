@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import requests
-import json
 import auxiliaries as aux
 import Utils.configs as configs
 import Utils.token as tokens
