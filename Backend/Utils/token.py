@@ -2,8 +2,6 @@ import jwt
 import datetime
 import Utils.configs as configs
 
-# https://realpython.com/token-based-authentication-with-flask/#jwt-setup
-
 # Encode authorization token
 def encode_auth_token(user_email):
     try:
