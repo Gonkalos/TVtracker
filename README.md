@@ -2,4 +2,4 @@
 
 ## Description
 
-App for tracking TV series.
+Simple app for tracking TV shows.
