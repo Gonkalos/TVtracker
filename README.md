@@ -1,2 +1,5 @@
 # TVtracker
-App for tracking TV series
+
+## Description
+
+App for tracking TV series.
